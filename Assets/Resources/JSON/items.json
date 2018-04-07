@@ -1,0 +1,55 @@
+[
+	{
+		"objectSlug": "Sword_01",
+		"itemName" : "Sword",
+		"description" : "A long, sharp blade" ,
+		"actionName" : "Equip" ,
+		"itemModifier" : 0,
+		"itemType" : "Weapon",
+		"stats" : [
+			{
+				"baseValue" : 2 ,
+				"statName" : "Power" 
+			},
+			{
+				"baseValue" : 4 ,
+				"statName" : "Speed" 
+			}
+				
+			
+		]
+
+	},
+	{
+
+		"objectSlug": "Staff_01",
+		"itemName" : "Staff",
+		"description" : "A long staff" ,
+		"actionName" : "Equip" ,
+		"itemType" : "Weapon",
+		"itemModifier" : 0,
+		"stats" : [
+			{
+				"baseValue" : 2 ,
+				"statName" : "Power" 
+			},
+			{
+				"baseValue" : 4 ,
+				"statName" : "Speed" 
+			}
+				
+			
+		]
+	},
+	{
+
+		"objectSlug": "Potion",
+		"itemName" : "Potion",
+		"description" : "A log potion" ,
+		"actionName" : "Drink" ,
+		"itemType" : "Consumable",
+		"itemModifier" : 0
+	}
+
+
+]
