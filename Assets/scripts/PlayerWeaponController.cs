@@ -1,24 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class PlayerWeaponController : MonoBehaviour {
 
     public GameObject playerHand;
-    public GameObject equippedWeapon { get; set; }
 
     Transform spawnProjectile;
-    IWeapon weaponComponent;
     CharacterStats characterStats;
+
+    public GameObject equippedWeapon { get; set; }
+    private Item currentlyEquipedWeaponItem;
+    IWeapon weaponComponent;
 
     void Start()
     {
         spawnProjectile = transform.Find("ProjectileSpawn");
-        characterStats = GetComponent<CharacterStats>();
+        characterStats = GetComponent<Player>().characterStats;
     }
 
-    public void EquipWeapon(Item itemToEquip)
+    public Item EquipWeapon(Item itemToEquip)
     {
+        Item previousWeaponItem = currentlyEquipedWeaponItem;
+        currentlyEquipedWeaponItem = itemToEquip;
+
         if(equippedWeapon != null)
         {
             characterStats.RemoveStatBonus(equippedWeapon.GetComponent<IWeapon>().Stats);
@@ -33,6 +37,7 @@ public class PlayerWeaponController : MonoBehaviour {
 
 
         weaponComponent = equippedWeapon.GetComponent<IWeapon>();
+
         if (equippedWeapon.GetComponent<IProjectileWeapon>() != null) {
             equippedWeapon.GetComponent<IProjectileWeapon>().projectileSpawn = spawnProjectile;
         }
@@ -43,6 +48,8 @@ public class PlayerWeaponController : MonoBehaviour {
         characterStats.AddStatBonus(itemToEquip.Stats);
 
         Debug.Log(weaponComponent.Stats[0]);
+
+        return previousWeaponItem;
     }
 
     void Update()
@@ -55,7 +62,7 @@ public class PlayerWeaponController : MonoBehaviour {
 
     public void PerformWeaponAttack()
     {
-        weaponComponent.PerformAttack();
+        weaponComponent.PerformAttack(characterStats);
     }
 
 }

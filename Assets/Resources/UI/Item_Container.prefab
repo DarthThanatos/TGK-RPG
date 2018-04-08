@@ -76,6 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a64f0bebb9b134086d5a2f0d14eca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemText: {fileID: 0}
+  itemImage: {fileID: 0}
 --- !u!114 &114148406408722454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,9 +153,9 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredHeight: 79.89001
   m_FlexibleWidth: 1
-  m_FlexibleHeight: 50
+  m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!114 &114319588415158538
 MonoBehaviour:
@@ -167,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.447}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -306,5 +308,5 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 183, y: 91.3}
+  m_SizeDelta: {x: 181.21002, y: 79.890015}
   m_Pivot: {x: 0.5, y: 0.5}

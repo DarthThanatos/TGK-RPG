@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour {
+
     public RectTransform inventoryPanel;
     public RectTransform scrollViewContent;
+
     InventoryUIItem itemContainer { get; set; }
 
     bool menuIsActive { get; set; }
     Item currentSelectedItem { get; set; }
 
-	// Use this for initialization
+
 	void Start () {
         itemContainer = Resources.Load<InventoryUIItem>("UI/Item_Container");
         UIEventHandler.OnItemAddedToInventory += ItemAdded;
@@ -21,7 +22,7 @@ public class InventoryUI : MonoBehaviour {
     {
         InventoryUIItem emptyItem = Instantiate(itemContainer);
         emptyItem.SetItem(item);
-        emptyItem.transform.SetParent(scrollViewContent);
+        emptyItem.transform.SetParent(scrollViewContent, false);
     }
 
     void Update()

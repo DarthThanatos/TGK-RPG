@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +16,6 @@ public class InventoryUIItem : MonoBehaviour {
 
     void SetupItemValues()
     {
-        //this.transform.Find("Name").GetComponent<Text>().text = item.ItemName;
         this.transform.Find("Name").GetComponent<Text>().text = item.ItemName;
         this.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Icons/" + item.ObjectSlug);
     }

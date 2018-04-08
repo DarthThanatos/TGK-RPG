@@ -17,6 +17,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             instance = this;
         }
+
         BuildDatabase();
 	}
 	

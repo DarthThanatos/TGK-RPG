@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
-using UnityEngine;
 using Newtonsoft.Json;
 
 public class Item  {
@@ -24,7 +23,7 @@ public class Item  {
     }
 
     [Newtonsoft.Json.JsonConstructor]
-    public Item(List<BaseStat> Stats, string ObjectSlug, string Description, string ActionName, string ItemName, bool ItemModifier, itemTypes itemType)
+    public Item(List<BaseStat> Stats, string ObjectSlug, string Description, string ActionName, string ItemName, bool ItemModifier, itemTypes ItemType)
     {
         this.Stats = Stats;
         this.ObjectSlug = ObjectSlug;
@@ -32,6 +31,6 @@ public class Item  {
         this.ActionName = ActionName;
         this.ItemName = ItemName;
         this.ItemModifier = ItemModifier;
-        this.ItemType = itemType;
+        this.ItemType = ItemType;
     }
 }

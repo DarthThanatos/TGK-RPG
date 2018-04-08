@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Test : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
-        Debug.Log("Yolo");
+        Debug.Log("Starting " + gameObject.name);
 	}
 	
 }

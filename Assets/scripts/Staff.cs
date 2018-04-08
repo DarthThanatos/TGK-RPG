@@ -10,10 +10,13 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon {
     private Animator animator;
     FireBall fireBall;
 
+    public CharacterStats characterStats { get; set; }
+
     void Start()
     {
         fireBall = Resources.Load<FireBall>("Weapons/Projectiles/FireBall");
         animator = GetComponent<Animator>();
+
     }
 
     public void castProjectile()
@@ -22,8 +25,9 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon {
         fireBallInstance.direction = projectileSpawn.forward;
     }
 
-    public void PerformAttack()
+    public void PerformAttack(CharacterStats characterStats)
     {
+        this.characterStats = characterStats;
         animator.SetTrigger("Staff_Cast");
     }
 
@@ -32,7 +36,7 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon {
         Debug.Log("Hit : " + collider.name);
         if (collider.tag == "Enemy")
         {
-            collider.GetComponent<IEnemy>().takeDamage(2);
+            collider.GetComponent<IEnemy>().takeDamage(characterStats.GetStat(BaseStat.BaseStatType.Power).GetCalulatedStatValue());
         }
     }
 }

@@ -2,16 +2,18 @@
 	{
 		"objectSlug": "Sword_01",
 		"itemName" : "Sword",
-		"description" : "A long, sharp blade" ,
+		"description" : "A long, sharp blade, excellent when used in short-range attacks" ,
 		"actionName" : "Equip" ,
 		"itemModifier" : 0,
 		"itemType" : "Weapon",
 		"stats" : [
 			{
+				"statType": "Power",
 				"baseValue" : 2 ,
 				"statName" : "Power" 
 			},
 			{
+				"statType": "Toughness",
 				"baseValue" : 4 ,
 				"statName" : "Speed" 
 			}
@@ -24,17 +26,19 @@
 
 		"objectSlug": "Staff_01",
 		"itemName" : "Staff",
-		"description" : "A long staff" ,
+		"description" : "A long staff, capable of shooting fireballs" ,
 		"actionName" : "Equip" ,
 		"itemType" : "Weapon",
 		"itemModifier" : 0,
 		"stats" : [
 			{
-				"baseValue" : 2 ,
+				"statType": "Power",
+				"baseValue" : 3,
 				"statName" : "Power" 
 			},
 			{
-				"baseValue" : 4 ,
+				"statType": "Toughness",
+				"baseValue" : 1 ,
 				"statName" : "Speed" 
 			}
 				
