@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +10,9 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon {
     private Animator animator;
     FireBall fireBall;
 
-    public CharacterStats characterStats { get; set; }
+    private int damageToGive;
+
+    public int CurrentDamage { get; set; }
 
     void Start()
     {
@@ -22,12 +24,13 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon {
     public void castProjectile()
     {
         FireBall fireBallInstance = Instantiate(fireBall, projectileSpawn.position, projectileSpawn.rotation);
+        fireBallInstance.damage = damageToGive;
         fireBallInstance.direction = projectileSpawn.forward;
     }
 
-    public void PerformAttack(CharacterStats characterStats)
+    public void PerformAttack(int damage)
     {
-        this.characterStats = characterStats;
+        damageToGive = damage;
         animator.SetTrigger("Staff_Cast");
     }
 
@@ -36,7 +39,7 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon {
         Debug.Log("Hit : " + collider.name);
         if (collider.tag == "Enemy")
         {
-            collider.GetComponent<IEnemy>().takeDamage(characterStats.GetStat(BaseStat.BaseStatType.Power).GetCalulatedStatValue());
+            collider.GetComponent<IEnemy>().takeDamage(damageToGive);
         }
     }
 }

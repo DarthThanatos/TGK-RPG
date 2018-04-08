@@ -11,7 +11,6 @@ public class FireBall : MonoBehaviour {
     void Start()
     {
         range = 20;
-        damage = 1;
         spawnPosition = transform.position;
         GetComponent<Rigidbody>().AddForce(direction * 50f);
     }
@@ -29,6 +28,7 @@ public class FireBall : MonoBehaviour {
     {
         if(collision.transform.tag == "Enemy")
         {
+            Debug.Log("Fireball dealt " + damage + " damage");
             collision.transform.GetComponent<IEnemy>().takeDamage(damage);
         }
         extinguish();

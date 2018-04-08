@@ -62,7 +62,24 @@ public class PlayerWeaponController : MonoBehaviour {
 
     public void PerformWeaponAttack()
     {
-        weaponComponent.PerformAttack(characterStats);
+        weaponComponent.PerformAttack(CalculateDamage());
     }
 
+    private int CalculateDamage()
+    {
+        int damageToDeal = ((characterStats.GetStat(BaseStat.BaseStatType.Power).GetCalulatedStatValue() *2) + Random.Range(2, 8));
+        damageToDeal += CalculateCrit(damageToDeal);
+        Debug.Log("Damage dealt: " + damageToDeal);
+        return damageToDeal;
+    }
+
+    private int CalculateCrit(int damage)
+    {
+        if(Random.value <= .1f)
+        {
+            int critDamage = (int)( (damage) * Random.Range(.25f, .5f));
+            return critDamage; 
+        }
+        return 0;
+    }
 }
