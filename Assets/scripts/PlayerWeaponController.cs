@@ -20,14 +20,10 @@ public class PlayerWeaponController : MonoBehaviour {
 
     public Item EquipWeapon(Item itemToEquip)
     {
-        Item previousWeaponItem = currentlyEquipedWeaponItem;
-        currentlyEquipedWeaponItem = itemToEquip;
 
-        if(equippedWeapon != null)
-        {
-            characterStats.RemoveStatBonus(equippedWeapon.GetComponent<IWeapon>().Stats);
-            Destroy(playerHand.transform.GetChild(0).gameObject);
-        }
+        Item previousWeaponItem = currentlyEquipedWeaponItem;
+        UnequipCurrentWeapon();
+        currentlyEquipedWeaponItem = itemToEquip;
 
         equippedWeapon = (GameObject)Instantiate(
             Resources.Load("Weapons/" + itemToEquip.ObjectSlug), 
@@ -49,7 +45,22 @@ public class PlayerWeaponController : MonoBehaviour {
 
         Debug.Log(weaponComponent.Stats[0]);
 
+        UIEventHandler.ItemEquipped(currentlyEquipedWeaponItem);
+        UIEventHandler.StatsChanged();
+
         return previousWeaponItem;
+    }
+
+    public void UnequipCurrentWeapon(bool notify = false)
+    {
+        if (equippedWeapon != null)
+        {
+            characterStats.RemoveStatBonus(equippedWeapon.GetComponent<IWeapon>().Stats);
+            Destroy(playerHand.transform.GetChild(0).gameObject);
+            if(notify) UIEventHandler.StatsChanged();
+            currentlyEquipedWeaponItem = null;
+        }
+
     }
 
     void Update()

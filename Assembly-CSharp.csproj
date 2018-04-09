@@ -57,6 +57,7 @@
      <Compile Include="Assets\scripts\ActionItem.cs" />
      <Compile Include="Assets\scripts\ActionItems\SignPost.cs" />
      <Compile Include="Assets\scripts\BaseStat.cs" />
+     <Compile Include="Assets\scripts\CharacterPanel.cs" />
      <Compile Include="Assets\scripts\CharacterStats.cs" />
      <Compile Include="Assets\scripts\ConsumableController.cs" />
      <Compile Include="Assets\scripts\DialogSystem.cs" />

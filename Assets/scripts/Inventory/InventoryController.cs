@@ -26,6 +26,8 @@ public class InventoryController : MonoBehaviour {
             instance = this;
         }
 
+        UIEventHandler.OnItemUnequipped += ItemUnequipped;
+
         giveItem("Sword_01");
         giveItem("Staff_01");
         giveItem("Potion");
@@ -39,6 +41,7 @@ public class InventoryController : MonoBehaviour {
         playerItems.Add(ItemDatabase.instance.GetItem(objectSlug));
         Debug.Log(playerItems.Count + " items in inventory. Added: " + objectSlug);
         UIEventHandler.ItemAddedToInventory(item);
+        
     }
 
     public void SetItemDetails(Item item, Button selectedButton)
@@ -53,6 +56,15 @@ public class InventoryController : MonoBehaviour {
         {
             UIEventHandler.ItemAddedToInventory(previousWeaponItem);
         }
+    }
+
+    void ItemUnequipped(Item item)
+    {
+       if(item != null) {
+            UIEventHandler.ItemAddedToInventory(item);
+            playerWeaponController.UnequipCurrentWeapon(notify : true);
+        }
+
     }
 
     public void ConsumeItem(Item itemToConsume)

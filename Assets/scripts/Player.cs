@@ -1,25 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Player : MonoBehaviour {
 
     public CharacterStats characterStats;
-    public float currentHealth;
-    public float maxHealth = 100;
+
+    public int maxHealth = 100;
+
+    private int _currentHealth;
+    public int CurrentHealth {
+        get { return _currentHealth; }
+        set {
+            int prevHealth = _currentHealth;
+            _currentHealth = value;
+            if (prevHealth != _currentHealth)
+                UIEventHandler.HealthChanged( _currentHealth, maxHealth);
+        }
+    }
+
 
     void Start()
     {
-        Debug.Log("Setting player health to " + maxHealth);
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
         characterStats = new CharacterStats(10, 10, 10);
     }
 
     public void takeDamage(int amount)
     {
 
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        CurrentHealth -= amount;
+        if (CurrentHealth <= 0)
         {
             die();
         }
@@ -29,6 +39,6 @@ public class Player : MonoBehaviour {
     private void die()
     {
         Debug.Log("Player dead, restoring health of the Nameless One");
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
     }
 }
