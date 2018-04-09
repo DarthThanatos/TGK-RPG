@@ -22,7 +22,7 @@ MonoBehaviour:
   m_MinSize: {x: 783, y: 442}
   m_MaxSize: {x: 16008, y: 8042}
   vertical: 1
-  controlID: 26609
+  controlID: 29057
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_MinSize: {x: 783, y: 442}
   m_MaxSize: {x: 16008, y: 8042}
   vertical: 0
-  controlID: 26610
+  controlID: 29058
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 506, y: 442}
   m_MaxSize: {x: 12006, y: 8042}
   vertical: 1
-  controlID: 26611
+  controlID: 29059
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 506, y: 221}
   m_MaxSize: {x: 12006, y: 4021}
   vertical: 0
-  controlID: 26612
+  controlID: 29060
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -191,8 +191,8 @@ MonoBehaviour:
     y: 0
     width: 876
     height: 587
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 7}
   m_Panes:
   - {fileID: 7}
@@ -229,14 +229,14 @@ MonoBehaviour:
     height: 566
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 35645.083717761794
+  lastFramingTime: 38074.29125431841
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -19.838682, y: 1.9739461, z: -22.395294}
+    m_Target: {x: -1.8146402, y: 6.9219036, z: 4.2402344}
     speed: 2
-    m_Value: {x: -19.838682, y: 1.9739461, z: -22.395294}
+    m_Value: {x: -1.8146402, y: 6.9219036, z: 4.2402344}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -252,21 +252,21 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
     yGrid:
-      m_Target: 1
-      speed: 2
-      m_Value: 1
-    zGrid:
       m_Target: 0
       speed: 2
       m_Value: 0
+    zGrid:
+      m_Target: 1
+      speed: 2
+      m_Value: 1
   m_Rotation:
-    m_Target: {x: -0.14795208, y: -0.00593372, z: 0.000888332, w: -0.9889775}
+    m_Target: {x: 0, y: 1, z: 0, w: 0}
     speed: 2
-    m_Value: {x: -0.14795208, y: -0.00593372, z: 0.000888332, w: -0.9889775}
+    m_Value: {x: 0, y: 1, z: 0, w: 0}
   m_Size:
-    m_Target: 5.0411615
+    m_Target: 10.406905
     speed: 2
-    m_Value: 5.0411615
+    m_Value: 10.406905
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -507,9 +507,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ce7df5ff
-    m_LastClickedID: -688690
-    m_ExpandedIDs: 0a9afdff5cf6ffff9efbffff000000000a32000012320000323200005a320000b0320000e832000004330000323300004c33000078330000f23300002a34000072340000fc3500000c3600004a360000be360000b8370000ce380000
+    m_SelectedIDs: 9817f5ff
+    m_LastClickedID: -714856
+    m_ExpandedIDs: 0a9afdff5cf6ffff9efbffff000000000a32000012320000323200005a320000b032000004330000323300004c33000078330000f23300002a34000072340000fc3500000c3600004a360000be360000b8370000ce380000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -598,18 +598,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Resources/Consumables
+    - Assets/Resources/Enemies
   m_ViewMode: 1
   m_StartGridSize: 60
   m_LastFolders:
-  - Assets/Resources/Consumables
+  - Assets/Resources/Enemies
   m_LastFoldersGridSize: 60
   m_LastProjectPath: C:\Users\Admin\Documents\TGK RPG
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 338}
-    m_SelectedIDs: fc2d0000
-    m_LastClickedID: 11772
+    m_SelectedIDs: 26290000
+    m_LastClickedID: 10534
     m_ExpandedIDs: 00000000bc270000962800000c290000b2290000282b00004e2d0000382e00009c2e0000a02e0000d22e00008a2f00008e2f000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -663,9 +663,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: ce7df5ff
-    m_LastClickedInstanceID: -688690
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 9817f5ff
+    m_LastClickedInstanceID: -714856
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000c22b0000cc60f7ffa22a0000dceb0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0

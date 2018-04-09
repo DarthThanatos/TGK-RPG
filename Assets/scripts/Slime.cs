@@ -18,6 +18,8 @@ public class Slime : MonoBehaviour, IEnemy {
     public int Experience {get; set;}
     public DropTable dropTable { get; set; }
 
+    public Spawner spawner { get; set; }
+
     void Start()
     {
         dropTable = new DropTable();
@@ -85,6 +87,7 @@ public class Slime : MonoBehaviour, IEnemy {
     {
         DropLoot();
         CombatEvents.EnemyDied(this);
+        this.spawner.Respawn();
         Destroy(gameObject);
     }
 

@@ -83,6 +83,7 @@
      <Compile Include="Assets\scripts\PlayerWeaponController.cs" />
      <Compile Include="Assets\scripts\PotionLog.cs" />
      <Compile Include="Assets\scripts\Slime.cs" />
+     <Compile Include="Assets\scripts\Spawner.cs" />
      <Compile Include="Assets\scripts\Staff.cs" />
      <Compile Include="Assets\scripts\StatBonus.cs" />
      <Compile Include="Assets\scripts\Sword.cs" />
