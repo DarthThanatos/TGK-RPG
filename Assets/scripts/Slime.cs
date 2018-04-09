@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,8 +15,20 @@ public class Slime : MonoBehaviour, IEnemy {
     private CharacterStats characterStats;
     private Player player;
 
+    public int Experience {get; set;}
+    public DropTable dropTable { get; set; }
+
     void Start()
     {
+        dropTable = new DropTable();
+        dropTable.loot = new List<LootDrop>() {
+            new LootDrop("Sword_01", 5),
+            new LootDrop("Staff_01", 0),
+            new LootDrop("Potion", 60)
+        };
+
+
+        Experience = 20;
         navMeshAgent = GetComponent<NavMeshAgent>();
         characterStats = new CharacterStats(6,10,2);
         currentHealth = maxHealth;
@@ -62,14 +75,27 @@ public class Slime : MonoBehaviour, IEnemy {
         currentHealth -= amount;
         if(currentHealth <= 0)
         {
-            die();
+            Die();
         }
 
     }
 
-    void die()
+
+    public void Die()
     {
+        DropLoot();
+        CombatEvents.EnemyDied(this);
         Destroy(gameObject);
     }
 
+    void DropLoot()
+    {
+        Item item = dropTable.GetDrop();
+        if(item != null)
+        {
+            Debug.Log("Dropping " + item.AbsoluteSlug);
+            PickupItem instance = Instantiate(Resources.Load<PickupItem>(item.AbsoluteSlug), transform.position, Quaternion.identity);
+            instance.ItemDrop = item;
+        }
+    }
 }

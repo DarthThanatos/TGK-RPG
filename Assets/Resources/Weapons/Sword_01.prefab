@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 54435029920306952}
   - component: {fileID: 65501541785101024}
   - component: {fileID: 114918219541811402}
+  - component: {fileID: 114430006483323098}
   - component: {fileID: 95924024848796730}
   m_Layer: 0
   m_Name: Sword_01
@@ -147,6 +148,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114430006483323098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2709118297cb594b9717bff6569d4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAgent: {fileID: 0}
+  ObjectSlug: Sword_01
 --- !u!114 &114918219541811402
 MonoBehaviour:
   m_ObjectHideFlags: 1

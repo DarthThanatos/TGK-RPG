@@ -44,6 +44,15 @@ public class InventoryController : MonoBehaviour {
         
     }
 
+
+    public void giveItem(Item item)
+    {
+        playerItems.Add(item);
+        Debug.Log(playerItems.Count + " items in inventory. Added: " + item.ObjectSlug);
+        UIEventHandler.ItemAddedToInventory(item);
+
+    }
+
     public void SetItemDetails(Item item, Button selectedButton)
     {
         inventoryDetailsPanel.SetItem(item, selectedButton);
@@ -70,5 +79,7 @@ public class InventoryController : MonoBehaviour {
     public void ConsumeItem(Item itemToConsume)
     {
         consumableController.consumeItem(itemToConsume);
+        playerItems.Remove(itemToConsume);
+        UIEventHandler.ItemRemovedFromInventory(itemToConsume);
     }
 }

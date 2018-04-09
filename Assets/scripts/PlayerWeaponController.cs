@@ -43,8 +43,6 @@ public class PlayerWeaponController : MonoBehaviour {
         equippedWeapon.transform.SetParent(playerHand.transform);
         characterStats.AddStatBonus(itemToEquip.Stats);
 
-        Debug.Log(weaponComponent.Stats[0]);
-
         UIEventHandler.ItemEquipped(currentlyEquipedWeaponItem);
         UIEventHandler.StatsChanged();
 
@@ -80,7 +78,6 @@ public class PlayerWeaponController : MonoBehaviour {
     {
         int damageToDeal = ((characterStats.GetStat(BaseStat.BaseStatType.Power).GetCalulatedStatValue() *2) + Random.Range(2, 8));
         damageToDeal += CalculateCrit(damageToDeal);
-        Debug.Log("Damage dealt: " + damageToDeal);
         return damageToDeal;
     }
 

@@ -30,14 +30,16 @@ public class WorldInteraction : MonoBehaviour {
 			GameObject interactedObject = interactionInfo.collider.gameObject;
             if(interactedObject.tag == "Enemy")
             {
-                Debug.Log("moving to enemy");
                 interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
             }
-			else if (interactedObject.tag == "Interactable Object") {
-				interactedObject.GetComponent<Interactable> ().MoveToInteraction(playerAgent);
+			else if (interactedObject.tag == "Interactable Object")
+            {
+                interactedObject.GetComponent<Interactable> ().MoveToInteraction(playerAgent);
 			} 
-			else {
-				playerAgent.stoppingDistance = 0;
+			else
+            {
+
+                playerAgent.stoppingDistance = 0;
 				playerAgent.destination = interactionInfo.point;
 
 			}

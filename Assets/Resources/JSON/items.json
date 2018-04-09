@@ -1,6 +1,7 @@
 [
 	{
 		"objectSlug": "Sword_01",
+		"absoluteSlug": "Weapons/Sword_01",
 		"itemName" : "Sword",
 		"description" : "A long, sharp blade, excellent when used in short-range attacks" ,
 		"actionName" : "Equip" ,
@@ -25,6 +26,7 @@
 	{
 
 		"objectSlug": "Staff_01",
+		"absoluteSlug": "Weapons/Staff_01",
 		"itemName" : "Staff",
 		"description" : "A long staff, capable of shooting fireballs" ,
 		"actionName" : "Equip" ,
@@ -48,6 +50,7 @@
 	{
 
 		"objectSlug": "Potion",
+		"absoluteSlug": "Consumables/Potion",
 		"itemName" : "Potion",
 		"description" : "A log potion" ,
 		"actionName" : "Drink" ,

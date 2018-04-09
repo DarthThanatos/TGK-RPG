@@ -4,6 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public CharacterStats characterStats;
+    public PlayerLevel playerLevel { get; set; }
 
     public int maxHealth = 100;
 
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour {
 
     void Start()
     {
+        playerLevel = GetComponent<PlayerLevel>();
         CurrentHealth = maxHealth;
         characterStats = new CharacterStats(10, 10, 10);
     }

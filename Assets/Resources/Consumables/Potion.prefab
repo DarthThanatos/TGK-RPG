@@ -22,12 +22,14 @@ GameObject:
   - component: {fileID: 33924735000301338}
   - component: {fileID: 23665764044036864}
   - component: {fileID: 114509391784587334}
+  - component: {fileID: 114302926588105848}
+  - component: {fileID: 65364411691002808}
   m_Layer: 0
   m_Name: Potion
-  m_TagString: Untagged
+  m_TagString: Interactable Object
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1928387548366758
 GameObject:
@@ -43,8 +45,8 @@ GameObject:
   m_Name: Full_20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!4 &4057360661251378
 Transform:
@@ -66,8 +68,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847907838115946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.620155, y: 2.4, z: -26.932974}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalPosition: {x: -21.620155, y: -333.186, z: -26.932974}
+  m_LocalScale: {x: 0.75639194, y: 0.5720474, z: 0.80647373}
   m_Children:
   - {fileID: 4057360661251378}
   m_Father: {fileID: 0}
@@ -155,6 +157,31 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847907838115946}
   m_Mesh: {fileID: 4300076, guid: 959563bf3774748988e4ebf13d07d411, type: 3}
+--- !u!65 &65364411691002808
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847907838115946}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4068711, y: 2.917278, z: 1.4068633}
+  m_Center: {x: -0.007494122, y: -0.77550805, z: 0}
+--- !u!114 &114302926588105848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847907838115946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2709118297cb594b9717bff6569d4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAgent: {fileID: 0}
+  ObjectSlug: Potion
 --- !u!114 &114509391784587334
 MonoBehaviour:
   m_ObjectHideFlags: 1

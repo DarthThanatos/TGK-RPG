@@ -1,9 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-
 public class PickupItem : Interactable {
-	public override void Interact(){
-		Debug.Log ("Interacting with an Item");
+
+    public Item ItemDrop { get; set; }
+
+    [SerializeField] private string ObjectSlug;
+
+    void Start()
+    {
+        ItemDrop = ItemDatabase.instance.GetItem(ObjectSlug);
+    }
+
+    public override void Interact(){
+        Debug.Log("Interacting with pickup item");
+        InventoryController.instance.giveItem(ItemDrop);
+        Destroy(gameObject);
 	}
 }

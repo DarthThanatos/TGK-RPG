@@ -36,7 +36,6 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon {
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("Hit : " + collider.name);
         if (collider.tag == "Enemy")
         {
             collider.GetComponent<IEnemy>().takeDamage(damageToGive);
