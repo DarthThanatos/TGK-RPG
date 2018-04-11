@@ -40,7 +40,7 @@ public class PlayerWeaponController : MonoBehaviour {
 
     
         equippedWeapon.GetComponent<IWeapon>().Stats = itemToEquip.Stats;
-        equippedWeapon.transform.SetParent(playerHand.transform);
+        equippedWeapon.transform.SetParent(playerHand.transform, false);
         characterStats.AddStatBonus(itemToEquip.Stats);
 
         UIEventHandler.ItemEquipped(currentlyEquipedWeaponItem);

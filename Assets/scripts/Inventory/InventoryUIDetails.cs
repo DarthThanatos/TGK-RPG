@@ -39,8 +39,8 @@ public class InventoryUIDetails : MonoBehaviour {
     {
         if (item.ItemType == Item.itemTypes.Consumable)
         {
-            InventoryController.instance.ConsumeItem(item);
-            Destroy(selectedItemButton.gameObject);
+           InventoryController.instance.ConsumeItem(item);
+           Destroy(selectedItemButton.gameObject);
         }
         else if(item.ItemType == Item.itemTypes.Weapon)
         {

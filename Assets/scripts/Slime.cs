@@ -87,7 +87,7 @@ public class Slime : MonoBehaviour, IEnemy {
     {
         DropLoot();
         CombatEvents.EnemyDied(this);
-        this.spawner.Respawn();
+        if(this.spawner != null)this.spawner.Respawn();
         Destroy(gameObject);
     }
 

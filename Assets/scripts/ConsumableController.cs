@@ -23,7 +23,7 @@ public class ConsumableController : MonoBehaviour {
             itemToSpawn.GetComponent<IConsumable>().consume();
         }
 
-
+        Destroy(itemToSpawn);
     }
 	
 }

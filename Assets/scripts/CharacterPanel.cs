@@ -79,7 +79,7 @@ public class CharacterPanel : MonoBehaviour {
         weaponIcon.sprite = Resources.Load<Sprite>("UI/Icons/" + item.ObjectSlug);
         weaponNameText.text = item.ItemName;
         weaponStatTexts = new List<Text>();
-        weaponStatPanel.DetachChildren();
+        destroyWeaponPanelStats();
         for(int i = 0; i < item.Stats.Count; i++)
         {
             Text instantiatedText = Instantiate(weaponStatPrefab);
@@ -100,9 +100,17 @@ public class CharacterPanel : MonoBehaviour {
         
     }
 
+    void destroyWeaponPanelStats()
+    {
+        for (int i = 0; i < weaponStatPanel.childCount; i++)
+        {
+            Destroy(weaponStatPanel.GetChild(i).gameObject);
+        }
+    }
+
     void InitializeUnequippedWeaponDetails()
     {
-        weaponStatPanel.DetachChildren();
+        destroyWeaponPanelStats();
         weaponNameText.text = "No weapon equipped";
         weaponIcon.sprite = defaultWeaponSprite;
     }
