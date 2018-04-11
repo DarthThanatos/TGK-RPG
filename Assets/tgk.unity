@@ -156,6 +156,11 @@ Prefab:
       propertyPath: m_Name
       value: Thug (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 114581181721652022, guid: 2810fa58d27676e478c68e581518debd,
+        type: 2}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1217116363}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2810fa58d27676e478c68e581518debd, type: 2}
   m_IsPrefabParent: 0
@@ -16512,7 +16517,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 157.49995}
+  m_AnchoredPosition: {x: 0, y: 157.50002}
   m_SizeDelta: {x: 0, y: 2000}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1527933801

@@ -9,8 +9,8 @@ public class Slime : MonoBehaviour, IEnemy {
     public LayerMask aggroLayerMask;
     private NavMeshAgent navMeshAgent;
 
-    public float currentHealth;
-    public float maxHealth = 100;
+    public int currentHealth;
+    public int maxHealth = 100;
 
     private CharacterStats characterStats;
     private Player player;
@@ -19,6 +19,7 @@ public class Slime : MonoBehaviour, IEnemy {
     public DropTable dropTable { get; set; }
 
     public Spawner spawner { get; set; }
+    private HealthbarUI healthbarUI;
 
     void Start()
     {
@@ -33,7 +34,10 @@ public class Slime : MonoBehaviour, IEnemy {
         Experience = 20;
         navMeshAgent = GetComponent<NavMeshAgent>();
         characterStats = new CharacterStats(6,10,2);
+
+        healthbarUI = GetComponent<HealthbarUI>();
         currentHealth = maxHealth;
+        healthbarUI.UpdateHealthBar(gameObject, currentHealth, maxHealth);
     }
 
     void FixedUpdate()
@@ -75,6 +79,7 @@ public class Slime : MonoBehaviour, IEnemy {
     public void takeDamage(int amount)
     {
         currentHealth -= amount;
+        healthbarUI.UpdateHealthBar(gameObject, currentHealth, maxHealth);
         if(currentHealth <= 0)
         {
             Die();
