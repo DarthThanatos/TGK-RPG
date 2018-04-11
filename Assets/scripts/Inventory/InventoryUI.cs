@@ -18,10 +18,28 @@ public class InventoryUI : MonoBehaviour {
         itemContainer = Resources.Load<InventoryUIItem>("UI/Item_Container");
         UIEventHandler.OnItemAddedToInventory += ItemAdded;
         UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
+        UIEventHandler.OnRemoveItemFromInventory += RemoveItem;
         inventoryPanel.gameObject.SetActive(false);
     }
 
-    public void ItemRemoved(Item item)
+    public void RemoveItem(Item item)
+    {
+        for(int i = 0; i < scrollViewContent.childCount; i++)
+        {
+            string currentUiName = scrollViewContent.GetChild(i).Find("Name").GetComponent<Text>().text;
+            Debug.Log("Checking " + currentUiName);
+            if(currentUiName == item.ItemName)
+            {
+                Debug.Log("Destroying i = " + i + " name: " + currentUiName);
+                Destroy(scrollViewContent.GetChild(i).gameObject);
+                Destroy(scrollViewContent.GetChild(i));
+                ItemRemoved();
+                break;
+            }
+        }
+    }
+
+    public void ItemRemoved(Item item = null)
     {
         UpdateItemNumbersUI();
     }

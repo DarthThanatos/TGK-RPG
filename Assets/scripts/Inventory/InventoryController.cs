@@ -29,6 +29,7 @@ public class InventoryController : MonoBehaviour {
         UIEventHandler.OnItemUnequipped += ItemUnequipped;
 
         giveItem("Sword_01");
+        giveItem("Sword_01");
         giveItem("Staff_01");
         giveItem("Potion");
     }
@@ -51,6 +52,11 @@ public class InventoryController : MonoBehaviour {
         Debug.Log(playerItems.Count + " items in inventory. Added: " + item.ObjectSlug);
         UIEventHandler.ItemAddedToInventory(item);
 
+    }
+
+    public int countItemsHavingName(string name)
+    {
+        return playerItems.FindAll(x => x.ItemName == name).Count;
     }
 
     public void SetItemDetails(Item item, Button selectedButton)
@@ -81,5 +87,12 @@ public class InventoryController : MonoBehaviour {
         consumableController.consumeItem(itemToConsume);
         playerItems.Remove(itemToConsume);
         UIEventHandler.ItemRemovedFromInventory(itemToConsume);
+    }
+
+    public void RemoveItemHavingName(string name)
+    {
+        Item itemByName = playerItems.Find(x => x.ItemName == name);
+        playerItems.Remove(itemByName);
+        UIEventHandler.RemoveItemFromInventory(itemByName);
     }
 }

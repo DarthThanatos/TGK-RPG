@@ -14294,7 +14294,7 @@ GameObject:
   - component: {fileID: 1336284721}
   - component: {fileID: 1336284720}
   - component: {fileID: 1336284719}
-  - component: {fileID: 1336284723}
+  - component: {fileID: 1336284724}
   m_Layer: 0
   m_Name: PasserBy
   m_TagString: Interactable Object
@@ -14368,7 +14368,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1336284723
+--- !u!114 &1336284724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -14376,15 +14376,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1336284718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6ccb99b0c704e4ca4ab9c68632c994, type: 3}
+  m_Script: {fileID: 11500000, guid: 8761fc6502533ed4fa9e5f4bbe9a167c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerAgent: {fileID: 0}
   dialog:
-  - There is a cave up there. Many have spoken of the horrors.
-  - Adventurers go in but they do not come out.
-  - 'You will probably not listen to my warnings anyhow. '
+  - 'Hey there friend, please help me! '
+  - 'There are 5 slimes that I hate dearly. Kill them. '
+  - Then I must ask you to pick up 3 potions for me. Please, be quick.
   npcName: PasserBy
+  Quests: {fileID: 1596731778}
+  QuestType: UltimateSlayer
 --- !u!1001 &1342724071
 Prefab:
   m_ObjectHideFlags: 0
@@ -16517,7 +16519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 157.50005}
+  m_AnchoredPosition: {x: 0, y: 157.49995}
   m_SizeDelta: {x: 0, y: 2000}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1527933801
@@ -17241,6 +17243,34 @@ Transform:
   m_PrefabParentObject: {fileID: 4712664776970368, guid: 33063a0916b40684cb3583f7c047950e,
     type: 2}
   m_PrefabInternal: {fileID: 2133022702}
+--- !u!1 &1596731778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1596731779}
+  m_Layer: 0
+  m_Name: Quests
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1596731779
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1596731778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.927, y: -0.8960545, z: -19.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1597867903 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4445075838596468, guid: fa08f8c3919faf840bab4542f9537e4f,

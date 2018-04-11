@@ -8,7 +8,7 @@ public class Slime : MonoBehaviour, IEnemy {
 
     public LayerMask aggroLayerMask;
     private NavMeshAgent navMeshAgent;
-
+    public int ID { get; set; }
     public int currentHealth;
     public int maxHealth = 100;
 
@@ -32,6 +32,8 @@ public class Slime : MonoBehaviour, IEnemy {
 
 
         Experience = 20;
+        ID = 0;
+
         navMeshAgent = GetComponent<NavMeshAgent>();
         characterStats = new CharacterStats(6,10,2);
 

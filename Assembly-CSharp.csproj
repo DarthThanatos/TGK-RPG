@@ -83,6 +83,12 @@
      <Compile Include="Assets\scripts\PlayerLevel.cs" />
      <Compile Include="Assets\scripts\PlayerWeaponController.cs" />
      <Compile Include="Assets\scripts\PotionLog.cs" />
+     <Compile Include="Assets\scripts\Questing\CollectionGoal.cs" />
+     <Compile Include="Assets\scripts\Questing\Goal.cs" />
+     <Compile Include="Assets\scripts\Questing\KillGoal.cs" />
+     <Compile Include="Assets\scripts\Questing\Quest.cs" />
+     <Compile Include="Assets\scripts\Questing\QuestGiver.cs" />
+     <Compile Include="Assets\scripts\Questing\UltimateSlayer.cs" />
      <Compile Include="Assets\scripts\Slime.cs" />
      <Compile Include="Assets\scripts\Spawner.cs" />
      <Compile Include="Assets\scripts\Staff.cs" />
