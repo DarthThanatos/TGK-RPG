@@ -116,6 +116,7 @@ MonoBehaviour:
   aggroLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  transparentMaterial: {fileID: 2100000, guid: db6275e993382b742af7443beb6a86fb, type: 2}
 --- !u!135 &135510355518940410
 SphereCollider:
   m_ObjectHideFlags: 1

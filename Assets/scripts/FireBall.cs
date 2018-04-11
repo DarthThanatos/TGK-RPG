@@ -7,6 +7,8 @@ public class FireBall : MonoBehaviour {
     public int damage { get; set; }
 
     [SerializeField] private LayerMask aggroLayerMask;
+    [SerializeField] private Material transparentMaterial;
+
     private ParticleSystem componentParticleSystem;
     Vector3 spawnPosition;
 
@@ -51,10 +53,9 @@ public class FireBall : MonoBehaviour {
                 Debug.Log("Exploding");
                 componentParticleSystem.Play();
 
-                //MeshRenderer renderer = gameObject.GetComponent<MeshRenderer>();
-                //Material material = renderer.material;
-
-                gameObject.GetComponent<Renderer>().material.SetColor("_Color", new Color(0f, 0f, 0f, 0f));
+                MeshRenderer renderer = gameObject.GetComponent<MeshRenderer>();
+                renderer.material = transparentMaterial;
+                
                 Collider[] withinAggroColliders = Physics.OverlapSphere(transform.position, 10, aggroLayerMask);
                 foreach(Collider collider in withinAggroColliders)
                 {
