@@ -36,4 +36,9 @@ public class HealthbarUI : MonoBehaviour {
         GUI.Box(rect, currentHealth + "/" + maxHealth);
 
     }
+
+    void OnDestroy()
+    {
+        Destroy(healthBar);
+    }
 }

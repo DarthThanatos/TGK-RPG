@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114581181721652022}
   - component: {fileID: 114571106360918750}
   - component: {fileID: 195685387811183712}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 'Thug '
   m_TagString: Enemy
   m_Icon: {fileID: 0}
