@@ -12,7 +12,7 @@ public class FireBall : MonoBehaviour {
     private ParticleSystem componentParticleSystem;
     Vector3 spawnPosition;
 
-    private int chanceToExplode = 100;
+    private int chanceToExplode = 25;
 
     void Start()
     {
