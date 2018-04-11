@@ -9,7 +9,6 @@ public class PickupItem : Interactable {
 
     void Start()
     {
-        Debug.Log("Instantiating pickup item");
         ItemDrop = ItemDatabase.instance.GetItem(ObjectSlug);
     }
 

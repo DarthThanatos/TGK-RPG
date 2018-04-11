@@ -41,6 +41,13 @@ public class PlayerWeaponController : MonoBehaviour {
     
         equippedWeapon.GetComponent<IWeapon>().Stats = itemToEquip.Stats;
         equippedWeapon.transform.SetParent(playerHand.transform, false);
+
+        Animator animator = equippedWeapon.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.enabled = true;
+        }
+
         characterStats.AddStatBonus(itemToEquip.Stats);
 
         UIEventHandler.ItemEquipped(currentlyEquipedWeaponItem);

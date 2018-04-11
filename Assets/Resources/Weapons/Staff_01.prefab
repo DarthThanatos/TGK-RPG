@@ -17,10 +17,10 @@ GameObject:
   - component: {fileID: 114682332349353266}
   m_Layer: 0
   m_Name: Staff_01
-  m_TagString: Untagged
+  m_TagString: Interactable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &400000
 Transform:
@@ -29,8 +29,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.91, y: 2.83, z: 0}
-  m_LocalScale: {x: 4.8048115, y: 1.1361296, z: 2.3204}
+  m_LocalPosition: {x: -0.24, y: 0.254, z: 0}
+  m_LocalScale: {x: 0.2731774, y: 0.2731774, z: 0.2731774}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -138,7 +138,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a26bde6c71e3d9844ab5a3ec9e2e8c0e, type: 2}
   m_CullingMode: 0

@@ -24,9 +24,9 @@ public class Slime : MonoBehaviour, IEnemy {
     {
         dropTable = new DropTable();
         dropTable.loot = new List<LootDrop>() {
-            new LootDrop("Sword_01", 5),
-            new LootDrop("Staff_01", 0),
-            new LootDrop("Potion", 60)
+            new LootDrop("Sword_01", 45),
+            new LootDrop("Staff_01", 30),
+            new LootDrop("Potion", 20)
         };
 
 
