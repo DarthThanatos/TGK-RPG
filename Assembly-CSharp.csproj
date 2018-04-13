@@ -85,8 +85,10 @@
      <Compile Include="Assets\scripts\PotionLog.cs" />
      <Compile Include="Assets\scripts\Questing\CollectionGoal.cs" />
      <Compile Include="Assets\scripts\Questing\Goal.cs" />
+     <Compile Include="Assets\scripts\Questing\JournalUI.cs" />
      <Compile Include="Assets\scripts\Questing\KillGoal.cs" />
      <Compile Include="Assets\scripts\Questing\Quest.cs" />
+     <Compile Include="Assets\scripts\Questing\QuestDetailsUI.cs" />
      <Compile Include="Assets\scripts\Questing\QuestGiver.cs" />
      <Compile Include="Assets\scripts\Questing\UltimateSlayer.cs" />
      <Compile Include="Assets\scripts\Slime.cs" />

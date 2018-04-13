@@ -11,6 +11,7 @@ public class Quest : MonoBehaviour {
     public int ExpreienceReward { get; set; }
     public Item ItemReward { get; set; }
     public bool Completed { get; set; }
+    public bool IsMain { get; set; }
     
 
     public void CheckGoals()
