@@ -55,18 +55,16 @@ public class PlayerWeaponController : MonoBehaviour {
     }
 
 
-    public bool UnequipCurrentWeaponIfMatches(Item item)
+    public void UnequipCurrentWeaponIfMatches(Item item)
     {
         // it comes from the outside,
         // we must check if the publisher really wanted to remove a weapon
         // (only relevant when other equipment controllers are in place, like e.g. an armour controller)
-        if (item == null || currentlyEquipedWeaponItem == null) return false;
+        if (item == null || currentlyEquipedWeaponItem == null) return;
         if (currentlyEquipedWeaponItem.Uuid == item.Uuid)
         {
             UnequipCurrentWeapon();
-            return true;
         }
-        return false;
     }
 
     private void UnequipCurrentWeapon()

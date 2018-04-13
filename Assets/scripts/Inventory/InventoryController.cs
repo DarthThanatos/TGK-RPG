@@ -84,10 +84,9 @@ public class InventoryController : MonoBehaviour {
     {
         Item itemByName = playerItems.Find(x => x.ItemName == name);
         playerItems.Remove(itemByName);
-
-
-        if(!playerWeaponController.UnequipCurrentWeaponIfMatches(itemByName));
-            UIEventHandler.ItemRemovedFromInventory(itemByName);
+        
+        playerWeaponController.UnequipCurrentWeaponIfMatches(itemByName);
+        UIEventHandler.ItemRemovedFromInventory(itemByName);
     }
 }
 

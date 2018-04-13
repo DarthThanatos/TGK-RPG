@@ -52,7 +52,7 @@ public class InventoryUIDetails : MonoBehaviour {
     private void RemoveItemIfSelected(Item item)
     {
 
-        if (item == null && this.item != null) return;
+        if (item == null || this.item == null) return;
         if (item.Uuid == this.item.Uuid)
         {
             UnselectItem();

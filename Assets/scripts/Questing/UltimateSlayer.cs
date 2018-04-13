@@ -12,7 +12,7 @@ public class UltimateSlayer : Quest {
 
         Goals = new List<Goal>();
         Goals.Add(new KillGoal(this, 0, "Kill 5 Slimes", false, 4, 5));
-        Goals.Add(new CollectionGoal(this, "Sword", "Bring me 3 swords", false, InventoryController.instance.countItemsHavingName("Sword"), 2));
+        Goals.Add(new CollectionGoal(this, "Sword", "Bring me 3 swords", false, InventoryController.instance.countItemsHavingName("Sword"), 3));
 
         Goals.ForEach(x => x.Init());
 	}
