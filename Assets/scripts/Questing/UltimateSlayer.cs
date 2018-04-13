@@ -11,7 +11,7 @@ public class UltimateSlayer : Quest {
 
         ItemReward = ItemDatabase.instance.GetNewInstanceOfItemWithSlug("Potion");
         ExpreienceReward = 200;
-        IsMain = true;
+        IsMain = false;
 
         Goals = new List<Goal>();
         Goals.Add(new KillGoal(this, 0, "Kill 5 Slimes", false, 4, 5));

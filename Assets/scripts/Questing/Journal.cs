@@ -34,7 +34,7 @@ public class Journal : MonoBehaviour {
 	
     public List<Quest> GetMainToDoQuests()
     {
-        return QuestList.FindAll(x => x.IsMain && ! x.Completed);
+        return QuestList.FindAll(x => x.IsMain && !x.Completed);
     }
 
     public List<Quest> GetMainDoneQuests()

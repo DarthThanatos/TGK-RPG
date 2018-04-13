@@ -41,7 +41,7 @@ public class JournalUI : MonoBehaviour {
         container.DetachChildren();
         foreach(Quest quest in quests)
         {
-            questToQuestSlot[quest].transform.SetParent(MainQuestsParentContent, false);
+            questToQuestSlot[quest].transform.SetParent(container, false);
         }
     }
 
@@ -119,7 +119,6 @@ public class JournalUI : MonoBehaviour {
 
     private void DisplayQuestDetails(Quest quest)
     {
-        Debug.Log("showing details");
         QuestEventHandler.DisplayQuestDetails(quest);
     }
 
