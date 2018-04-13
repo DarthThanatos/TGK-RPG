@@ -8,6 +8,7 @@ public class JournalUI : MonoBehaviour {
     [SerializeField] private RectTransform JournalPanel;
     [SerializeField] private RectTransform MainQuestsParentContent;
     [SerializeField] private RectTransform SideQuestsParentContent;
+    [SerializeField] private Text Header;
 
     private bool isJournalActive = false;
     private bool showingToDoQuests = true;
@@ -48,6 +49,7 @@ public class JournalUI : MonoBehaviour {
     {
         if (!showingToDoQuests) QuestEventHandler.UnselectQuest();
         showingToDoQuests = true;
+        Header.text = "Your journal: To-Do Quests";
         ShowTodoQuests();
     }
 
@@ -55,6 +57,7 @@ public class JournalUI : MonoBehaviour {
     {
         if (showingToDoQuests) QuestEventHandler.UnselectQuest();
         showingToDoQuests = false;
+        Header.text = "Your journal: Done Quests";
         ShowDoneQuests();
     }
 

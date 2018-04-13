@@ -76,6 +76,7 @@ public class PlayerWeaponController : MonoBehaviour {
             UIEventHandler.ItemUnequipped(currentlyEquipedWeaponItem);
             UIEventHandler.StatsChanged();
             currentlyEquipedWeaponItem = null;
+            weaponComponent = null;
         }
     }
 
@@ -89,7 +90,8 @@ public class PlayerWeaponController : MonoBehaviour {
 
     public void PerformWeaponAttack()
     {
-        weaponComponent.PerformAttack(CalculateDamage());
+        if(weaponComponent != null)
+            weaponComponent.PerformAttack(CalculateDamage());
     }
 
     private int CalculateDamage()

@@ -3894,6 +3894,7 @@ MonoBehaviour:
   JournalPanel: {fileID: 912873297}
   MainQuestsParentContent: {fileID: 615380688}
   SideQuestsParentContent: {fileID: 1205706613}
+  Header: {fileID: 1902420586}
 --- !u!114 &370215568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3953,7 +3954,7 @@ RectTransform:
   m_Father: {fileID: 523046739}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.28319997}
+  m_AnchorMin: {x: 0, y: 0.2832011}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -6568,7 +6569,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1056863987}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.7168
+  m_Size: 0.7167991
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12371,7 +12372,7 @@ RectTransform:
   m_Father: {fileID: 812046611}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.28320003}
+  m_AnchorMin: {x: 0, y: 0.28320092}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -14433,7 +14434,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 35.83999}
+  m_AnchoredPosition: {x: 0, y: 35.84}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1205706614
@@ -17806,7 +17807,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 371429409}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.71680003
+  m_Size: 0.7167989
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -24193,7 +24194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Your Journal
+  m_Text: 'Your journal: To-Do Quests'
 --- !u!222 &1902420587
 CanvasRenderer:
   m_ObjectHideFlags: 0
