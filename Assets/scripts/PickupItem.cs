@@ -9,7 +9,7 @@ public class PickupItem : Interactable {
 
     void Start()
     {
-        ItemDrop = ItemDatabase.instance.GetItem(ObjectSlug);
+        ItemDrop = ItemDatabase.instance.GetNewInstanceOfItemWithSlug(ObjectSlug);
     }
 
     public override void Interact(){

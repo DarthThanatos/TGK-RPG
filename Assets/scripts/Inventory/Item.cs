@@ -13,6 +13,7 @@ public class Item  {
     public string ItemName { get; set; }
     public bool ItemModifier { get; set; }
     public string AbsoluteSlug { get; set; }
+    public System.Guid Uuid { get; set; }
 
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public itemTypes ItemType { get; set; }
@@ -21,6 +22,7 @@ public class Item  {
     {
         this.Stats = Stats;
         this.ObjectSlug = ObjectSlug;
+        Uuid = System.Guid.NewGuid();
     }
 
     [JsonConstructor]
@@ -34,5 +36,19 @@ public class Item  {
         this.ItemModifier = ItemModifier;
         this.ItemType = ItemType;
         this.AbsoluteSlug = AbsoluteSlug;
+        Uuid = System.Guid.NewGuid();
+    }
+
+    public Item(Item item)
+    {
+        Stats = item.Stats;
+        ObjectSlug = item.ObjectSlug;
+        Description = item.Description;
+        ActionName = item.ActionName;
+        ItemName = item.ItemName;
+        ItemModifier = item.ItemModifier;
+        ItemType = item.ItemType;
+        AbsoluteSlug = item.AbsoluteSlug;
+        Uuid = System.Guid.NewGuid();
     }
 }

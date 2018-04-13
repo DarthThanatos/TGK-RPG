@@ -1,19 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class CollectionGoal : Goal
 {
-    public string ItemID { get; set; }
+    public string ItemName { get; set; }
 
-    public CollectionGoal(Quest Quest, string ItemID, string Description, bool Completed, int CurrentAmount, int RequiredAmount)
+    public CollectionGoal(Quest Quest, string ItemName, string Description, bool Completed, int CurrentAmount, int RequiredAmount)
     {
         this.Quest = Quest;
-        this.ItemID = ItemID;
+        this.ItemName = ItemName;
         this.Description = Description;
         this.Completed = Completed;
         this.CurrentAmount = CurrentAmount;
         this.RequiredAmount = RequiredAmount;
+        Evaluate();
     }
 
     public override void Init()
@@ -24,7 +24,7 @@ public class CollectionGoal : Goal
 
     void ItemPickedUp(Item item)
     {
-        if (item.ItemName == ItemID)
+        if (item.ItemName == ItemName)
         {
             CurrentAmount++;
             Evaluate();
@@ -35,8 +35,8 @@ public class CollectionGoal : Goal
     {
         for (int i = 0; i < RequiredAmount; i++)
         {
-            Debug.Log("Removing " + ItemID);
-            //InventoryController.instance.RemoveItemHavingName(ItemID);
+            Debug.Log("Removing " + ItemName);
+            InventoryController.instance.RemoveItemHavingName(ItemName);
         }
     }
 }

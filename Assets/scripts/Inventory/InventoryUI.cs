@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic; 
 
 public class InventoryUI : MonoBehaviour {
 
@@ -14,46 +15,64 @@ public class InventoryUI : MonoBehaviour {
     Item currentSelectedItem { get; set; }
 
 
+    private Dictionary<System.Guid, GameObject> uuidToPrefab;
+
     void Start() {
+        uuidToPrefab = new Dictionary<System.Guid, GameObject>();
         itemContainer = Resources.Load<InventoryUIItem>("UI/Item_Container");
+
         UIEventHandler.OnItemAddedToInventory += ItemAdded;
         UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
-        UIEventHandler.OnRemoveItemFromInventory += RemoveItem;
+
+        UIEventHandler.OnItemEquipped += ItemEquipped;
+        UIEventHandler.OnItemUnequipped += ItemUneqipped;
+
         inventoryPanel.gameObject.SetActive(false);
     }
 
-    public void RemoveItem(Item item)
+    private void ItemEquipped(Item item)
     {
-        for(int i = 0; i < scrollViewContent.childCount; i++)
-        {
-            string currentUiName = scrollViewContent.GetChild(i).Find("Name").GetComponent<Text>().text;
-            Debug.Log("Checking " + currentUiName);
-            if(currentUiName == item.ItemName)
-            {
-                Debug.Log("Destroying i = " + i + " name: " + currentUiName);
-                Destroy(scrollViewContent.GetChild(i).gameObject);
-                Destroy(scrollViewContent.GetChild(i));
-                ItemRemoved();
-                break;
-            }
-        }
+        RemoveItemRepresentation(item);
     }
 
-    public void ItemRemoved(Item item = null)
+    private void ItemUneqipped(Item item)
     {
-        UpdateItemNumbersUI();
+        AddItemRepresentation(item);
+    }
+
+    private void ItemAdded(Item item)
+    {
+        AddItemRepresentation(item);
+    }
+
+    private void ItemRemoved(Item item)
+    {
+        RemoveItemRepresentation(item);
     }
 
     void UpdateItemNumbersUI()
     {
-        itemsNumber.text = InventoryController.instance.playerItems.Count.ToString() + " items in the inventory";
+        int numberOfItems = InventoryController.instance.playerItems.Count;
+        itemsNumber.text = numberOfItems.ToString() + " items in the inventory";
     }
 
-    public void ItemAdded(Item item)
+    private void RemoveItemRepresentation(Item item)
     {
+        if (item == null) return;
+        if (uuidToPrefab.ContainsKey(item.Uuid)) { 
+            Destroy(uuidToPrefab[item.Uuid]);
+            uuidToPrefab.Remove(item.Uuid);
+            UpdateItemNumbersUI();
+        }
+    }
+
+    private void AddItemRepresentation(Item item)
+    {
+        Debug.Log("Inventory UI adding item with uuid: " + item.Uuid + "Items in map: " + uuidToPrefab.Count);
         InventoryUIItem emptyItem = Instantiate(itemContainer);
         emptyItem.SetItem(item);
         emptyItem.transform.SetParent(scrollViewContent, false);
+        uuidToPrefab[item.Uuid] = emptyItem.gameObject;
         UpdateItemNumbersUI();
     }
 

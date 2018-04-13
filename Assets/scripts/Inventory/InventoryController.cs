@@ -26,7 +26,6 @@ public class InventoryController : MonoBehaviour {
             instance = this;
         }
 
-        UIEventHandler.OnItemUnequipped += ItemUnequipped;
 
         giveItem("Sword_01");
         giveItem("Sword_01");
@@ -38,11 +37,10 @@ public class InventoryController : MonoBehaviour {
 
     public void giveItem(string objectSlug)
     {
-        Item item = ItemDatabase.instance.GetItem(objectSlug);
-        playerItems.Add(ItemDatabase.instance.GetItem(objectSlug));
+        Item item = ItemDatabase.instance.GetNewInstanceOfItemWithSlug(objectSlug);
+        playerItems.Add(item);
         Debug.Log(playerItems.Count + " items in inventory. Added: " + objectSlug);
         UIEventHandler.ItemAddedToInventory(item);
-        
     }
 
 
@@ -66,20 +64,13 @@ public class InventoryController : MonoBehaviour {
 
     public void EquipItem(Item itemToEquip)
     {
-        Item previousWeaponItem = playerWeaponController.EquipWeapon(itemToEquip);
-        if(previousWeaponItem != null)
-        {
-            UIEventHandler.ItemAddedToInventory(previousWeaponItem);
-        }
+        playerWeaponController.EquipWeapon(itemToEquip);
     }
 
-    void ItemUnequipped(Item item)
-    {
-       if(item != null) {
-            UIEventHandler.ItemAddedToInventory(item);
-            playerWeaponController.UnequipCurrentWeapon(notify : true);
-        }
 
+    public void UnequipItem(Item itemToUnequip)
+    {
+        playerWeaponController.UnequipCurrentWeaponIfMatches(itemToUnequip);
     }
 
     public void ConsumeItem(Item itemToConsume)
@@ -93,6 +84,10 @@ public class InventoryController : MonoBehaviour {
     {
         Item itemByName = playerItems.Find(x => x.ItemName == name);
         playerItems.Remove(itemByName);
-        UIEventHandler.RemoveItemFromInventory(itemByName);
+
+
+        if(!playerWeaponController.UnequipCurrentWeaponIfMatches(itemByName));
+            UIEventHandler.ItemRemovedFromInventory(itemByName);
     }
 }
+

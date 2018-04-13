@@ -12,6 +12,7 @@ public class InventoryUIDetails : MonoBehaviour {
 
     void Start()
     {
+        UIEventHandler.OnItemRemovedFromInventory += RemoveItemIfSelected;
         itemNameText = transform.Find("ItemName").GetComponent<Text>();
         statText = transform.Find("Stat_List").GetChild(0).GetComponent<Text>();
         itemDescriptionText = transform.Find("ItemDescription").GetComponent<Text>();
@@ -40,15 +41,28 @@ public class InventoryUIDetails : MonoBehaviour {
         if (item.ItemType == Item.itemTypes.Consumable)
         {
            InventoryController.instance.ConsumeItem(item);
-           Destroy(selectedItemButton.gameObject);
         }
         else if(item.ItemType == Item.itemTypes.Weapon)
         {
             InventoryController.instance.EquipItem(item);
-            Destroy(selectedItemButton.gameObject);
         }
+        UnselectItem();
+    }
 
+    private void RemoveItemIfSelected(Item item)
+    {
+
+        if (item == null && this.item != null) return;
+        if (item.Uuid == this.item.Uuid)
+        {
+            UnselectItem();
+        }
+    }
+
+    private void UnselectItem()
+    {
         item = null;
         gameObject.SetActive(false);
     }
+
 }

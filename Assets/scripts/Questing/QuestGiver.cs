@@ -44,6 +44,7 @@ public class QuestGiver : NPC {
         Quest.CheckGoals();
         if (Quest.Completed)
         {
+            Debug.Log("Giving reward");
             Quest.GiveReward();
             Quest.Finish();
             HelpedNPC = true;

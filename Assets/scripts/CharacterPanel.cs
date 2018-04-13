@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,11 +33,25 @@ public class CharacterPanel : MonoBehaviour {
         UIEventHandler.OnPlayerHealthChanged += UpdateHealth;
         UIEventHandler.OnPlayerLevelChanged += UpdateExperience;
         UIEventHandler.OnStatsChanged += UpdateStats;
+
+        UIEventHandler.OnItemUnequipped += UnequipWeapon;
         UIEventHandler.OnItemEquipped += UpdateEquippedWeapon;
+
+        UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
+
         InitializeStats();
         InitializeUnequippedWeaponDetails();
 	}
 
+    private void ItemRemoved(Item item)
+    {
+
+        if (item == null || currentlyEquipedWeapon == null) return;
+        if (item.Uuid == currentlyEquipedWeapon.Uuid)
+        {
+            InitializeUnequippedWeaponDetails();
+        }
+    }
 
     void UpdateHealth(int currentHealth, int maxHealth)
     {
@@ -89,12 +104,17 @@ public class CharacterPanel : MonoBehaviour {
         }
     }
 
-    public void UnequipWeapon()
+
+    public void  OnUnequipButtonClicked()
     {
-        if (currentlyEquipedWeapon != null)
+        InventoryController.instance.UnequipItem(currentlyEquipedWeapon);
+    }
+
+    private  void UnequipWeapon(Item item)
+    {
+        if (currentlyEquipedWeapon != null && currentlyEquipedWeapon == item)
         {
             InitializeUnequippedWeaponDetails();
-            UIEventHandler.ItemUnequipped(currentlyEquipedWeapon);
             currentlyEquipedWeapon = null;
         }
         

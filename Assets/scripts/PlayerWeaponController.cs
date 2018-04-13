@@ -18,7 +18,7 @@ public class PlayerWeaponController : MonoBehaviour {
         characterStats = GetComponent<Player>().characterStats;
     }
 
-    public Item EquipWeapon(Item itemToEquip)
+    public void EquipWeapon(Item itemToEquip)
     {
 
         Item previousWeaponItem = currentlyEquipedWeaponItem;
@@ -52,20 +52,33 @@ public class PlayerWeaponController : MonoBehaviour {
 
         UIEventHandler.ItemEquipped(currentlyEquipedWeaponItem);
         UIEventHandler.StatsChanged();
-
-        return previousWeaponItem;
     }
 
-    public void UnequipCurrentWeapon(bool notify = false)
+
+    public bool UnequipCurrentWeaponIfMatches(Item item)
+    {
+        // it comes from the outside,
+        // we must check if the publisher really wanted to remove a weapon
+        // (only relevant when other equipment controllers are in place, like e.g. an armour controller)
+        if (item == null || currentlyEquipedWeaponItem == null) return false;
+        if (currentlyEquipedWeaponItem.Uuid == item.Uuid)
+        {
+            UnequipCurrentWeapon();
+            return true;
+        }
+        return false;
+    }
+
+    private void UnequipCurrentWeapon()
     {
         if (equippedWeapon != null)
         {
             characterStats.RemoveStatBonus(equippedWeapon.GetComponent<IWeapon>().Stats);
             Destroy(playerHand.transform.GetChild(0).gameObject);
-            if(notify) UIEventHandler.StatsChanged();
+            UIEventHandler.ItemUnequipped(currentlyEquipedWeaponItem);
+            UIEventHandler.StatsChanged();
             currentlyEquipedWeaponItem = null;
         }
-
     }
 
     void Update()

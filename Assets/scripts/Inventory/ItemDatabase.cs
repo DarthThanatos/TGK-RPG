@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
 public class ItemDatabase : MonoBehaviour {
+
     public static ItemDatabase instance { get; set; }
     private List<Item> items { get; set; }
 
-    // Use this for initialization
     void Awake () {
 		if(instance != null && instance != this)
         {
@@ -30,8 +29,9 @@ public class ItemDatabase : MonoBehaviour {
     }
 
 
-    public Item GetItem(string objectSlug)
+    public Item GetNewInstanceOfItemWithSlug(string objectSlug)
     {
-        return items.Find(x => x.ObjectSlug == objectSlug);
+        Item templateItem = items.Find(x => x.ObjectSlug == objectSlug);
+        return new Item(templateItem);
     }
 }
