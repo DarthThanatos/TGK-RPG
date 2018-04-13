@@ -37,21 +37,12 @@ public class CharacterPanel : MonoBehaviour {
         UIEventHandler.OnItemUnequipped += UnequipWeapon;
         UIEventHandler.OnItemEquipped += UpdateEquippedWeapon;
 
-        UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
+        UIEventHandler.OnItemRemovedFromInventory += UnequipWeapon;
 
         InitializeStats();
         InitializeUnequippedWeaponDetails();
 	}
 
-    private void ItemRemoved(Item item)
-    {
-
-        if (item == null || currentlyEquipedWeapon == null) return;
-        if (item.Uuid == currentlyEquipedWeapon.Uuid)
-        {
-            InitializeUnequippedWeaponDetails();
-        }
-    }
 
     void UpdateHealth(int currentHealth, int maxHealth)
     {
@@ -119,6 +110,7 @@ public class CharacterPanel : MonoBehaviour {
         }
         
     }
+
 
     void destroyWeaponPanelStats()
     {
