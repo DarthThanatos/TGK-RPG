@@ -37,6 +37,8 @@ public class QuestGiver : NPC {
     {
         QuestAssigned = true;
         Quest = (Quest) Quests.AddComponent(System.Type.GetType(QuestType));
+        Quest.init();
+        Journal.instance.AddQuest(Quest);
     }
 
     void CheckQuest()
@@ -45,8 +47,7 @@ public class QuestGiver : NPC {
         if (Quest.Completed)
         {
             Debug.Log("Giving reward");
-            Quest.GiveReward();
-            Quest.Finish();
+            Journal.instance.FinishQuest(Quest);
             HelpedNPC = true;
             QuestAssigned = false;
             DialogSystem.instance.AddNewDialog(new string[] { "Thanks for that!", "Here is your reward!"}, name);

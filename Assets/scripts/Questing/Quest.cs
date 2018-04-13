@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public class Quest : MonoBehaviour {
+public abstract class Quest : MonoBehaviour {
     public List<Goal> Goals { get; set; }
     public string QuestName { get; set; }
     public string Description { get; set; }
@@ -19,6 +19,8 @@ public class Quest : MonoBehaviour {
         Debug.Log("Quest completed");
         Completed = Goals.All(x => x.Completed);
     }
+
+    public abstract void init();
 
     public void GiveReward()
     {

@@ -22,11 +22,17 @@ class KillGoal : Goal
 
     void EnemyDied(IEnemy enemy)
     {
-        if(enemy.ID == EnemyID)
+        if(enemy.ID == EnemyID && !Completed)
         {
             CurrentAmount++;
             Evaluate();
+            QuestEventHandler.GoalUpdated( this);
         }
+    }
+
+    public override string GetGoalState()
+    {
+        return "Killed " + EnemyCatalogue.enemies[EnemyID] + "s: " + CurrentAmount + "/" + RequiredAmount;
     }
 }
 

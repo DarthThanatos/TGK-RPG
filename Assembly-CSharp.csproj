@@ -63,6 +63,7 @@
      <Compile Include="Assets\scripts\ConsumableController.cs" />
      <Compile Include="Assets\scripts\DialogSystem.cs" />
      <Compile Include="Assets\scripts\DropTable.cs" />
+     <Compile Include="Assets\scripts\EnemyCatalogue.cs" />
      <Compile Include="Assets\scripts\FireBall.cs" />
      <Compile Include="Assets\scripts\HealthbarUI.cs" />
      <Compile Include="Assets\scripts\IConsumable.cs" />
@@ -85,10 +86,13 @@
      <Compile Include="Assets\scripts\PotionLog.cs" />
      <Compile Include="Assets\scripts\Questing\CollectionGoal.cs" />
      <Compile Include="Assets\scripts\Questing\Goal.cs" />
+     <Compile Include="Assets\scripts\Questing\Journal.cs" />
      <Compile Include="Assets\scripts\Questing\JournalUI.cs" />
+     <Compile Include="Assets\scripts\Questing\JournalUIDetails.cs" />
      <Compile Include="Assets\scripts\Questing\KillGoal.cs" />
      <Compile Include="Assets\scripts\Questing\Quest.cs" />
      <Compile Include="Assets\scripts\Questing\QuestDetailsUI.cs" />
+     <Compile Include="Assets\scripts\Questing\QuestEventHandler.cs" />
      <Compile Include="Assets\scripts\Questing\QuestGiver.cs" />
      <Compile Include="Assets\scripts\Questing\UltimateSlayer.cs" />
      <Compile Include="Assets\scripts\Slime.cs" />

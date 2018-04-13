@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goal
+public abstract class Goal
 {
     public string Description { get; set; }
     public bool Completed { get; set; }
@@ -19,6 +19,8 @@ public class Goal
     {
 
     }
+
+    public abstract string GetGoalState();
 
     public void Evaluate()
     {

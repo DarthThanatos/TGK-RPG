@@ -14,7 +14,6 @@ public class InventoryUI : MonoBehaviour {
     bool menuIsActive { get; set; }
     Item currentSelectedItem { get; set; }
 
-
     private Dictionary<System.Guid, GameObject> uuidToPrefab;
 
     void Start() {

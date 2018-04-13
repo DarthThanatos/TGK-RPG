@@ -24,10 +24,11 @@ public class CollectionGoal : Goal
 
     void ItemPickedUp(Item item)
     {
-        if (item.ItemName == ItemName)
+        if (item.ItemName == ItemName && !Completed)
         {
             CurrentAmount++;
             Evaluate();
+            QuestEventHandler.GoalUpdated(this);
         }
     }
 
@@ -38,5 +39,10 @@ public class CollectionGoal : Goal
             Debug.Log("Removing " + ItemName);
             InventoryController.instance.RemoveItemHavingName(ItemName);
         }
+    }
+
+    public override string GetGoalState()
+    {
+        return "Gathered " + ItemName + ": " + CurrentAmount + "/" + RequiredAmount;
     }
 }
