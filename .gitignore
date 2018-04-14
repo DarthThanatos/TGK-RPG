@@ -7,5 +7,4 @@
 /.vs/
 
 /obj/
-*.csproj
 *.userprefs
