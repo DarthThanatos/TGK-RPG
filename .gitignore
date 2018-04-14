@@ -1,1 +1,11 @@
 /Temp/
+
+[Ll]ibrary/
+
+
+# Visual Studio cache directory
+/.vs/
+
+
+*.csproj
+*.sln
