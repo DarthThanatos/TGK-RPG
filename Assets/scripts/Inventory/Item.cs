@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public class Item  {
 
@@ -51,4 +52,11 @@ public class Item  {
         AbsoluteSlug = item.AbsoluteSlug;
         Uuid = System.Guid.NewGuid();
     }
+
+    public Item()
+    {
+        Uuid = System.Guid.Empty;
+    }
+
+
 }

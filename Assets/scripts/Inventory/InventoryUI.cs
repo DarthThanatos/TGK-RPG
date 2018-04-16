@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class InventoryUI : MonoBehaviour {
 
+
     public RectTransform inventoryPanel;
     public RectTransform scrollViewContent;
 
@@ -20,13 +21,12 @@ public class InventoryUI : MonoBehaviour {
         uuidToPrefab = new Dictionary<System.Guid, GameObject>();
         itemContainer = Resources.Load<InventoryUIItem>("UI/Item_Container");
 
-        UIEventHandler.OnItemAddedToInventory += ItemAdded;
         UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
 
         UIEventHandler.OnItemEquipped += ItemEquipped;
         UIEventHandler.OnItemUnequipped += ItemUneqipped;
 
-        inventoryPanel.gameObject.SetActive(false);
+
     }
 
     private void ItemEquipped(Item item)
@@ -39,10 +39,6 @@ public class InventoryUI : MonoBehaviour {
         AddItemRepresentation(item);
     }
 
-    private void ItemAdded(Item item)
-    {
-        AddItemRepresentation(item);
-    }
 
     private void ItemRemoved(Item item)
     {
@@ -52,7 +48,6 @@ public class InventoryUI : MonoBehaviour {
     void UpdateItemNumbersUI()
     {
         int numberOfItems = InventoryController.instance.playerItems.Count;
-        itemsNumber.text = numberOfItems.ToString() + " items in the inventory";
     }
 
     private void RemoveItemRepresentation(Item item)
@@ -75,12 +70,5 @@ public class InventoryUI : MonoBehaviour {
         UpdateItemNumbersUI();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            menuIsActive = !menuIsActive;
-            inventoryPanel.gameObject.SetActive(menuIsActive);
-        }
-    }
+ 
 }

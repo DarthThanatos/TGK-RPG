@@ -26,11 +26,6 @@ public class InventoryController : MonoBehaviour {
             instance = this;
         }
 
-
-        giveItem("Sword_01");
-        giveItem("Sword_01");
-        giveItem("Staff_01");
-        giveItem("Potion");
     }
 
 
