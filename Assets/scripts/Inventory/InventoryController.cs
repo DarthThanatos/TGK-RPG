@@ -71,7 +71,6 @@ public class InventoryController : MonoBehaviour {
     public void ConsumeItem(Item itemToConsume)
     {
         consumableController.consumeItem(itemToConsume);
-        playerItems.Remove(itemToConsume);
         UIEventHandler.ItemRemovedFromInventory(itemToConsume);
     }
 

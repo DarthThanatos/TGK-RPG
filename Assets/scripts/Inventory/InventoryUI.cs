@@ -21,7 +21,6 @@ public class InventoryUI : MonoBehaviour {
         uuidToPrefab = new Dictionary<System.Guid, GameObject>();
         itemContainer = Resources.Load<InventoryUIItem>("UI/Item_Container");
 
-        UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
 
         UIEventHandler.OnItemEquipped += ItemEquipped;
         UIEventHandler.OnItemUnequipped += ItemUneqipped;

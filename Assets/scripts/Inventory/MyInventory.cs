@@ -38,9 +38,10 @@ public class MyInventory : MonoBehaviour {
         }
 
         UIEventHandler.OnItemAddedToInventory += ItemAdded;
+        UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
         AddItem("Sword_01");
-        AddItem("Sword_01");
-        AddItem("Sword_01");
+        AddItem("Staff_01");
+        AddItem("Potion");
 
         inventoryPanel.SetActive(false);
 
@@ -49,6 +50,11 @@ public class MyInventory : MonoBehaviour {
     private void ItemAdded(Item item)
     {
         AddItem(item.ObjectSlug);
+    }
+
+    private void ItemRemoved(Item item)
+    {
+        RemoveItem(item);
     }
 
     void Update()
@@ -63,16 +69,16 @@ public class MyInventory : MonoBehaviour {
     public void AddItem(string objectSlug)
     {
         Item itemToAdd = database.GetNewInstanceOfItemWithSlug(objectSlug);
-
-        // TODO: has to add this to model
-        // if(itemToAdd.Stackable)
-        if (CheckIfItemIsInInventory(itemToAdd))
+        
+        if (itemToAdd.stackable && CheckIfItemIsInInventory(itemToAdd))
         {
             for (int i = 0; i < items.Count; i++)
             {
                 if (items[i].ItemName == itemToAdd.ItemName)
                 {
                     // the only child in item is text with item amount
+                    Debug.Log("i: " + i + " slots: " + slots.ToString());
+                    Debug.Log("children: " + slots[i].transform.childCount);
                     ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
                     data.amount++;
                     data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
@@ -86,7 +92,7 @@ public class MyInventory : MonoBehaviour {
             {
                 if (items[i].Uuid.Equals(System.Guid.Empty) == true)
                 {
-                    Debug.Log("Adding item");
+                    Debug.Log("Adding item " + itemToAdd.ItemName + " on pos: " + i);
                     items[i] = itemToAdd;
                     GameObject itemObj = Instantiate(inventoryItem);
                     itemObj.GetComponent<ItemData>().item = itemToAdd;
@@ -101,9 +107,56 @@ public class MyInventory : MonoBehaviour {
             }
         }
 
-        items.Add(itemToAdd);
+        // items.Add(itemToAdd);
         Debug.Log("Added: " + objectSlug + " to inventory");
        
+    }
+
+    void RemoveItem(Item item)
+    {
+        if (item.stackable)
+            RemoveStackableItem(item.ItemName);
+        else
+            RemoveNonStackableItem(item.Uuid);
+    }
+
+    void RemoveStackableItem(string itemName)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            Debug.Log("itemName: " + itemName);
+            Debug.Log("items[i].ItemName " + items[i].ItemName);
+            if (items[i].ItemName == itemName)
+            {
+                Debug.Log("Wow wow here");
+
+                ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
+                if (data.amount > 1)
+                {
+                    data.amount--;
+                    data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+                }
+                else {
+                    Destroy(slots[i].transform.GetChild(0).gameObject);
+                    items[i] = new Item();
+                    
+                }
+                break;
+            }
+        }
+    }
+
+        void RemoveNonStackableItem(System.Guid uuid)
+    {
+        for(int i = 0; i < items.Count; i++)
+        {
+            if (items[i].Uuid.Equals(uuid))
+            {
+                items[i] = new Item();
+                break;
+            }
+
+        }
     }
 
     bool CheckIfItemIsInInventory(Item item)

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemData : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler {
+public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+{
     public Item item;
     public int amount;
     public int slot;
@@ -17,9 +18,9 @@ public class ItemData : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDr
         tooltip = inv.GetComponent<Tooltip>();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        if (item != null)
+        if (eventData.button == PointerEventData.InputButton.Left && item.Uuid.Equals(System.Guid.Empty) == false)
         {
             // parent of item -> slot, parent of slot -> slotPanel
             this.transform.SetParent(this.transform.parent.parent);
@@ -51,5 +52,16 @@ public class ItemData : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDr
     public void OnPointerExit(PointerEventData eventData)
     {
         tooltip.Deactivate();
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right && item.Uuid.Equals(System.Guid.Empty) == false)
+        {
+            if (item.ItemType == Item.itemTypes.Weapon)
+                InventoryController.instance.EquipItem(item);
+            else if (item.ItemType == Item.itemTypes.Consumable)
+                InventoryController.instance.ConsumeItem(item);
+        }
     }
 }
