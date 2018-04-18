@@ -33,7 +33,6 @@ public class InventoryController : MonoBehaviour {
     public void giveItem(string objectSlug)
     {
         Item item = ItemDatabase.instance.GetNewInstanceOfItemWithSlug(objectSlug);
-        playerItems.Add(item);
         Debug.Log(playerItems.Count + " items in inventory. Added: " + objectSlug);
         UIEventHandler.ItemAddedToInventory(item);
     }
@@ -41,7 +40,6 @@ public class InventoryController : MonoBehaviour {
 
     public void giveItem(Item item)
     {
-        playerItems.Add(item);
         Debug.Log(playerItems.Count + " items in inventory. Added: " + item.ObjectSlug);
         UIEventHandler.ItemAddedToInventory(item);
 
