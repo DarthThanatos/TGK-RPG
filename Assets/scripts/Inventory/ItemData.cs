@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, 
+    IPointerExitHandler, IPointerDownHandler
 {
     public Item item;
     public int amount;
     public int slot;
 
     private MyInventory inv;
-    private Tooltip tooltip;
+    public Tooltip tooltip;
 
     void Start()
     {
@@ -56,12 +57,22 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (Input.GetButton("Fire3") && Input.GetMouseButtonDown(0) && item.Uuid.Equals(System.Guid.Empty) == false)
+        {
+            inv.RemoveItem(item);
+        }
+
         if (eventData.button == PointerEventData.InputButton.Right && item.Uuid.Equals(System.Guid.Empty) == false)
         {
             if (item.ItemType == Item.itemTypes.Weapon)
+            {
                 InventoryController.instance.EquipItem(item);
+       
+            }
             else if (item.ItemType == Item.itemTypes.Consumable)
+            {
                 InventoryController.instance.ConsumeItem(item);
+            }
         }
     }
 }

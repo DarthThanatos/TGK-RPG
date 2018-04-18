@@ -7,6 +7,11 @@ public class MyInventory : MonoBehaviour {
 
     public GameObject inventoryPanel;
     public GameObject slotPanel;
+
+    int occupiedSlotsAmount;
+    public GameObject occupiedSlots;
+
+
     ItemDatabase database;
 
     bool isActive = false;
@@ -22,6 +27,9 @@ public class MyInventory : MonoBehaviour {
     private void Start()
     {
         slotAmount = 16;
+        occupiedSlotsAmount = 0;
+ 
+        setOccupiedSlots();
         database = GetComponent<ItemDatabase>();
         invController = GameObject.Find("Player").GetComponent<InventoryController>();
 
@@ -39,6 +47,8 @@ public class MyInventory : MonoBehaviour {
 
         UIEventHandler.OnItemAddedToInventory += ItemAdded;
         UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
+        UIEventHandler.OnItemEquipped += ItemRemoved;
+        UIEventHandler.OnItemUnequipped += ItemAdded;
         AddItem("Sword_01");
         AddItem("Staff_01");
         AddItem("Potion");
@@ -102,6 +112,8 @@ public class MyInventory : MonoBehaviour {
                     itemObj.transform.position = slots[i].transform.position;
                     itemObj.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Icons/" + itemToAdd.ObjectSlug);
                     itemObj.name = itemToAdd.ItemName;
+                    occupiedSlotsAmount++;
+                    setOccupiedSlots();
                     break;
                 }
             }
@@ -112,7 +124,7 @@ public class MyInventory : MonoBehaviour {
        
     }
 
-    void RemoveItem(Item item)
+    public void RemoveItem(Item item)
     {
         if (item.stackable)
             RemoveStackableItem(item.ItemName);
@@ -139,20 +151,28 @@ public class MyInventory : MonoBehaviour {
                 else {
                     Destroy(slots[i].transform.GetChild(0).gameObject);
                     items[i] = new Item();
-                    
+                    occupiedSlotsAmount--;
+                    setOccupiedSlots();
+                    // this is needed i.e. when we consume last stackable element, and we have to turn off tooltip 
+                    data.tooltip.Deactivate();
                 }
                 break;
             }
         }
     }
 
-        void RemoveNonStackableItem(System.Guid uuid)
+    void RemoveNonStackableItem(System.Guid uuid)
     {
         for(int i = 0; i < items.Count; i++)
         {
             if (items[i].Uuid.Equals(uuid))
             {
+                ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
+                Destroy(slots[i].transform.GetChild(0).gameObject);
                 items[i] = new Item();
+                occupiedSlotsAmount--;
+                setOccupiedSlots();
+                data.tooltip.Deactivate();
                 break;
             }
 
@@ -167,5 +187,10 @@ public class MyInventory : MonoBehaviour {
                 return true;
         }
         return false;
+    }
+
+    void setOccupiedSlots()
+    {
+        occupiedSlots.GetComponent<Text>().text = occupiedSlotsAmount + " / " + slotAmount;
     }
 }
