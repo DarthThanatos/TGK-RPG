@@ -26,6 +26,6 @@ public class GoldUI : MonoBehaviour {
 
     void OnDestroy()
     {
-        Destroy(amountDisplayText.gameObject);
+        if(amountDisplayText != null) Destroy(amountDisplayText.gameObject);
     }
 }

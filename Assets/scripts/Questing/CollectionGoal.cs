@@ -1,5 +1,4 @@
 ﻿
-using System;
 using UnityEngine;
 
 public class CollectionGoal : Goal
@@ -55,6 +54,6 @@ public class CollectionGoal : Goal
 
     public override string GetGoalState()
     {
-        return "Gathered " + ItemName + ": " + CurrentAmount + "/" + RequiredAmount;
+        return "Gathered " + ItemName + "s: " + CurrentAmount + "/" + RequiredAmount;
     }
 }

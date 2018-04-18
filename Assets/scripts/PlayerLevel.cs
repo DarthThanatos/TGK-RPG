@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UnityEngine;
 
 public class PlayerLevel : MonoBehaviour {
@@ -12,9 +13,15 @@ public class PlayerLevel : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         CombatEvents.OnEnemyDeath += EnemyToExperience;
+        QuestEventHandler.OnQuestFinished += OnQuestFinished;
         Level = 1;	
 	}
-	
+
+    private void OnQuestFinished(Quest quest)
+    {
+        GrantExperience(quest.ExperienceReward);
+    }
+
     public void EnemyToExperience(IEnemy enemy)
     {
         GrantExperience(enemy.Experience);

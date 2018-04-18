@@ -25,7 +25,8 @@ public class QuestDetailsUI : MonoBehaviour {
 
     private void OnGoalUpdated(Goal goal)
     {
-        if (goal != null && goalToGameObjectMap.ContainsKey(goal))
+        if (goal == null || goalToGameObjectMap == null) return;
+        if (goalToGameObjectMap.ContainsKey(goal))
         {
             goalToGameObjectMap[goal].transform.Find("Label").GetComponent<Text>().text = goal.GetGoalState();
             goalToGameObjectMap[goal].GetComponent<Toggle>().isOn = goal.Completed;

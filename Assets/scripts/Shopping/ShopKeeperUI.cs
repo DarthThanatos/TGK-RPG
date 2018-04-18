@@ -185,4 +185,5 @@ public class ShopKeeperUI : Interactable {
         toolTipArea.gameObject.SetActive(false);
     }
 
+
 }

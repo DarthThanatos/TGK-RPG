@@ -94,6 +94,7 @@
      <Compile Include="Assets\scripts\Questing\QuestDetailsUI.cs" />
      <Compile Include="Assets\scripts\Questing\QuestEventHandler.cs" />
      <Compile Include="Assets\scripts\Questing\QuestGiver.cs" />
+     <Compile Include="Assets\scripts\Questing\QuestGiverUI.cs" />
      <Compile Include="Assets\scripts\Questing\UltimateSlayer.cs" />
      <Compile Include="Assets\scripts\Shopping\EconomyEventHandel.cs" />
      <Compile Include="Assets\scripts\Shopping\EconomySystem.cs" />

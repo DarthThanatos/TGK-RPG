@@ -10,7 +10,8 @@ public class UltimateSlayer : Quest {
         Description = "An NPC told me to kill 5 slimes and to bring him 3 swords. After doing all this he asked me to go back to him so that he can reward me for my effort.";
 
         ItemReward = ItemDatabase.instance.GetNewInstanceOfItemWithSlug("Potion");
-        ExpreienceReward = 200;
+        ExperienceReward = 200;
+        GoldReward = 500;
         IsMain = false;
 
         Goals = new List<Goal>();
