@@ -26,11 +26,6 @@ public class InventoryController : MonoBehaviour {
             instance = this;
         }
 
-
-        giveItem("Sword_01");
-        giveItem("Sword_01");
-        giveItem("Staff_01");
-        giveItem("Potion");
     }
 
 
@@ -38,7 +33,6 @@ public class InventoryController : MonoBehaviour {
     public void giveItem(string objectSlug)
     {
         Item item = ItemDatabase.instance.GetNewInstanceOfItemWithSlug(objectSlug);
-        playerItems.Add(item);
         Debug.Log(playerItems.Count + " items in inventory. Added: " + objectSlug);
         UIEventHandler.ItemAddedToInventory(item);
     }
@@ -46,7 +40,6 @@ public class InventoryController : MonoBehaviour {
 
     public void giveItem(Item item)
     {
-        playerItems.Add(item);
         Debug.Log(playerItems.Count + " items in inventory. Added: " + item.ObjectSlug);
         UIEventHandler.ItemAddedToInventory(item);
 
@@ -76,13 +69,11 @@ public class InventoryController : MonoBehaviour {
     public void ConsumeItem(Item itemToConsume)
     {
         consumableController.consumeItem(itemToConsume);
-        playerItems.Remove(itemToConsume);
         UIEventHandler.ItemRemovedFromInventory(itemToConsume);
     }
 
     public void RemoveItem(Item item)
     {
-        playerItems.Remove(item);
         playerWeaponController.UnequipCurrentWeaponIfMatches(item);
         UIEventHandler.ItemRemovedFromInventory(item);
     }

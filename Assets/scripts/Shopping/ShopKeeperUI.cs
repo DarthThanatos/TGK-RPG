@@ -107,35 +107,39 @@ public class ShopKeeperUI : Interactable {
     {
         foreach (Item item in items)
         {
-            GameObject itemRepresentation = Instantiate(shopItemPrefab);
-            itemRepresentation.transform.Find("ItemImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Icons/" + item.ObjectSlug); ;
-            itemRepresentation.transform.Find("ItemName").GetComponent<Text>().text = item.ItemName;
-            itemRepresentation.transform.Find("ItemPrice").GetComponent<Text>().text = "Costs: " + (item.ItemPrice * priceMultiplier).ToString();
-            itemRepresentation.transform.SetParent(parent);
+            if (item.Uuid.Equals(System.Guid.Empty) == false)
+            {
+                GameObject itemRepresentation = Instantiate(shopItemPrefab);
+                itemRepresentation.transform.Find("ItemImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Icons/" + item.ObjectSlug); ;
+                itemRepresentation.transform.Find("ItemName").GetComponent<Text>().text = item.ItemName;
+                itemRepresentation.transform.Find("ItemPrice").GetComponent<Text>().text = "Costs: " + (item.ItemPrice * priceMultiplier).ToString();
+                itemRepresentation.transform.SetParent(parent);
 
-            itemRepresentation.transform.Find("Toggle").GetComponent<Toggle>().onValueChanged.AddListener(
-                (value) => {
-                    OnShopItemSelectionStatusChanged(itemRepresentation, playerGameObjects.ContainsKey(item.Uuid), priceMultiplier);       
-                 }  
-            );   
-            itemRepresentation.GetComponent<Button>().onClick.AddListener(delegate { OnShopItemClicked(itemRepresentation);  });
+                itemRepresentation.transform.Find("Toggle").GetComponent<Toggle>().onValueChanged.AddListener(
+                    (value) =>
+                    {
+                        OnShopItemSelectionStatusChanged(itemRepresentation, playerGameObjects.ContainsKey(item.Uuid), priceMultiplier);
+                    }
+                );
+                itemRepresentation.GetComponent<Button>().onClick.AddListener(delegate { OnShopItemClicked(itemRepresentation); });
 
-            EventTrigger evTrigger = itemRepresentation.AddComponent<EventTrigger>();
+                EventTrigger evTrigger = itemRepresentation.AddComponent<EventTrigger>();
 
-            EventTrigger.Entry tooltipOnEntry = new EventTrigger.Entry();
-            tooltipOnEntry.eventID = EventTriggerType.PointerEnter;
-            tooltipOnEntry.callback.AddListener((eventData) => TurnOnTooltip(itemRepresentation));
+                EventTrigger.Entry tooltipOnEntry = new EventTrigger.Entry();
+                tooltipOnEntry.eventID = EventTriggerType.PointerEnter;
+                tooltipOnEntry.callback.AddListener((eventData) => TurnOnTooltip(itemRepresentation));
 
-            EventTrigger.Entry tooltipOffEntry = new EventTrigger.Entry();
-            tooltipOffEntry.eventID = EventTriggerType.PointerExit;
-            tooltipOffEntry.callback.AddListener((eventData) => TurnOffTooltip(itemRepresentation));
+                EventTrigger.Entry tooltipOffEntry = new EventTrigger.Entry();
+                tooltipOffEntry.eventID = EventTriggerType.PointerExit;
+                tooltipOffEntry.callback.AddListener((eventData) => TurnOffTooltip(itemRepresentation));
 
 
-            evTrigger.triggers.Add(tooltipOnEntry);
-            evTrigger.triggers.Add(tooltipOffEntry);
+                evTrigger.triggers.Add(tooltipOnEntry);
+                evTrigger.triggers.Add(tooltipOffEntry);
 
-            gameObjects[item.Uuid] = itemRepresentation;
-            representationToItemMap[itemRepresentation] = item;
+                gameObjects[item.Uuid] = itemRepresentation;
+                representationToItemMap[itemRepresentation] = item;
+            }
         }
     }
 
