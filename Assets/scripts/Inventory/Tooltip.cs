@@ -16,6 +16,10 @@ public class Tooltip : MonoBehaviour {
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Deactivate();
+        }
         if (tooltip.activeSelf)
         {
             tooltip.transform.position = Input.mousePosition;
