@@ -7,6 +7,7 @@
 		"actionName" : "Equip" ,
 		"itemModifier" : 0,
 		"itemType" : "Weapon",
+		"itemPrice": 200,
 		"stats" : [
 			{
 				"statType": "Power",
@@ -32,6 +33,7 @@
 		"actionName" : "Equip" ,
 		"itemType" : "Weapon",
 		"itemModifier" : 0,
+		"itemPrice": 500,
 		"stats" : [
 			{
 				"statType": "Power",
@@ -55,6 +57,7 @@
 		"description" : "A log potion" ,
 		"actionName" : "Drink" ,
 		"itemType" : "Consumable",
+		"itemPrice": 50,
 		"itemModifier" : 0
 	}
 

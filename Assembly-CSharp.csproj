@@ -95,6 +95,12 @@
      <Compile Include="Assets\scripts\Questing\QuestEventHandler.cs" />
      <Compile Include="Assets\scripts\Questing\QuestGiver.cs" />
      <Compile Include="Assets\scripts\Questing\UltimateSlayer.cs" />
+     <Compile Include="Assets\scripts\Shopping\EconomyEventHandel.cs" />
+     <Compile Include="Assets\scripts\Shopping\EconomySystem.cs" />
+     <Compile Include="Assets\scripts\Shopping\Gold.cs" />
+     <Compile Include="Assets\scripts\Shopping\GoldUI.cs" />
+     <Compile Include="Assets\scripts\Shopping\Shopkeeper.cs" />
+     <Compile Include="Assets\scripts\Shopping\ShopKeeperUI.cs" />
      <Compile Include="Assets\scripts\Slime.cs" />
      <Compile Include="Assets\scripts\Spawner.cs" />
      <Compile Include="Assets\scripts\Staff.cs" />
@@ -102,7 +108,9 @@
      <Compile Include="Assets\scripts\Sword.cs" />
      <Compile Include="Assets\scripts\Test.cs" />
      <Compile Include="Assets\scripts\WorldInteraction.cs" />
+     <None Include="Assets\Resources\ShopDB\shoplist_2.txt" />
      <None Include="Assets\Low Polygon Potions Pack\Readme.txt" />
+     <None Include="Assets\Resources\ShopDB\shoplist_1.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

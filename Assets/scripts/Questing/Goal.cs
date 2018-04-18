@@ -29,6 +29,10 @@ public abstract class Goal
         {
             Complete();
         }
+        else
+        {
+            Completed = false;
+        }
     }
 
     public void Complete()

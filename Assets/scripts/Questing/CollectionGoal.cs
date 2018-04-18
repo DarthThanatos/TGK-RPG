@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UnityEngine;
 
 public class CollectionGoal : Goal
@@ -20,11 +21,22 @@ public class CollectionGoal : Goal
     {
         base.Init();
         UIEventHandler.OnItemAddedToInventory += ItemPickedUp;
+        UIEventHandler.OnItemRemovedFromInventory += OnItemRemoved;
+    }
+
+    private void OnItemRemoved(Item item)
+    {
+        if (item.ItemName == ItemName && !Quest.Completed)
+        {
+            CurrentAmount--;
+            Evaluate();
+            QuestEventHandler.GoalUpdated(this);
+        }
     }
 
     void ItemPickedUp(Item item)
     {
-        if (item.ItemName == ItemName && !Completed)
+        if (item.ItemName == ItemName && !Quest.Completed)
         {
             CurrentAmount++;
             Evaluate();
