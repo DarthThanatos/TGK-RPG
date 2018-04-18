@@ -28,6 +28,11 @@ public class Interactable : MonoBehaviour {
 		}
 	}
 
+    public void CancelAction()
+    {
+        hasInteracted = true;
+    }
+
     void EnsureLookDirection()
     {
         playerAgent.updateRotation = false;
