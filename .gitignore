@@ -1,11 +1,10 @@
 /Temp/
 
-[Ll]ibrary/
+/[Ll]ibrary/
 
-
+/UnityPackageManager
 # Visual Studio cache directory
 /.vs/
 
-
-*.csproj
-*.sln
+/obj/
+*.userprefs

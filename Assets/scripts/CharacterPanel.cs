@@ -23,6 +23,9 @@ public class CharacterPanel : MonoBehaviour {
     [SerializeField] private Text weaponStatPrefab;
     [SerializeField] private Transform weaponStatPanel;
     [SerializeField] private Image weaponIcon;
+
+    [SerializeField] private Text goldAmountText;
+
     private List<Text> weaponStatTexts;
 
     private Item currentlyEquipedWeapon;
@@ -39,10 +42,17 @@ public class CharacterPanel : MonoBehaviour {
 
         UIEventHandler.OnItemRemovedFromInventory += UnequipWeapon;
 
+        EconomyEventHandel.OnPlayerGoldChanged += OnPlayerGoldChanged;
+
         InitializeStats();
         InitializeUnequippedWeaponDetails();
-	}
+        OnPlayerGoldChanged();
+    }
 
+    private void OnPlayerGoldChanged()
+    {
+        goldAmountText.text = "Gold: " + EconomySystem.instance.PlayerMoney.ToString();
+    }
 
     void UpdateHealth(int currentHealth, int maxHealth)
     {

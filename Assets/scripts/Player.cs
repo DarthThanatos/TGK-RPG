@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
             int prevHealth = _currentHealth;
             _currentHealth = value;
             if (prevHealth != _currentHealth)
-                UIEventHandler.HealthChanged( _currentHealth, maxHealth);
+                 UIEventHandler.HealthChanged( _currentHealth, maxHealth);
         }
     }
 

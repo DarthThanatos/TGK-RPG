@@ -1,0 +1,2 @@
+Sword_01 3
+Staff_01 5

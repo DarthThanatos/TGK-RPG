@@ -172,7 +172,8 @@ public class MyInventory : MonoBehaviour {
                 items[i] = new Item();
                 occupiedSlotsAmount--;
                 setOccupiedSlots();
-                data.tooltip.Deactivate();
+                if (data.tooltip != null)
+                    data.tooltip.Deactivate();
                 break;
             }
 

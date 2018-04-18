@@ -74,13 +74,16 @@ public class InventoryController : MonoBehaviour {
         UIEventHandler.ItemRemovedFromInventory(itemToConsume);
     }
 
+    public void RemoveItem(Item item)
+    {
+        playerWeaponController.UnequipCurrentWeaponIfMatches(item);
+        UIEventHandler.ItemRemovedFromInventory(item);
+    }
+
     public void RemoveItemHavingName(string name)
     {
         Item itemByName = playerItems.Find(x => x.ItemName == name);
-        playerItems.Remove(itemByName);
-        
-        playerWeaponController.UnequipCurrentWeaponIfMatches(itemByName);
-        UIEventHandler.ItemRemovedFromInventory(itemByName);
+        RemoveItem(itemByName);
     }
 }
 

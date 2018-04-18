@@ -21,6 +21,7 @@ public class Slime : MonoBehaviour, IEnemy {
     public Spawner spawner { get; set; }
     private HealthbarUI healthbarUI;
 
+
     void Start()
     {
         dropTable = new DropTable();
@@ -106,6 +107,16 @@ public class Slime : MonoBehaviour, IEnemy {
             Debug.Log("Dropping " + item.AbsoluteSlug);
             PickupItem instance = Instantiate(Resources.Load<PickupItem>(item.AbsoluteSlug), transform.position, Quaternion.identity);
             instance.ItemDrop = item;
+        }
+
+
+        int chanceToDropGold = 100;
+        if (Random.Range(0, 101) <= chanceToDropGold)
+        {
+            Vector3 goldPos = new Vector3(transform.position.x-1, 2f, transform.position.z-1);
+            Quaternion quaternion = Quaternion.AngleAxis(90, new Vector3(1,0,0));
+            Gold gold = Instantiate(Resources.Load<Gold>("GoldCoins/goldCoins_pref"), goldPos, quaternion);
+            gold.Amount = 100 + Random.Range(-15, 15); ;
         }
     }
 }

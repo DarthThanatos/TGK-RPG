@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,8 @@ public class DialogSystem : MonoBehaviour {
     Text dialogueText, nameText;
     int dialogueIndex;
 
-    // Use this for initialization
+    private Action actionAtFinish;
+
     void Awake() {
         nextButton = dialogPanel.transform.Find("Next").GetComponent<Button>();
         dialogueText = dialogPanel.transform.Find("Text").GetComponent<Text>();
@@ -38,6 +40,8 @@ public class DialogSystem : MonoBehaviour {
 	
     public void AddNewDialog(string[] lines, string npcName)
     {
+        actionAtFinish = null;
+
         dialogueIndex = 0;
         dialogueLines = new List<string>(lines.Length);
         dialogueLines.AddRange(lines);
@@ -45,6 +49,11 @@ public class DialogSystem : MonoBehaviour {
 
         this.npcName = npcName;
         CreateDialog();
+    }
+
+    public void SetActionAtFinish(Action actionAtFinish)
+    {
+        this.actionAtFinish = actionAtFinish;
     }
 
     public void CreateDialog()
@@ -68,6 +77,7 @@ public class DialogSystem : MonoBehaviour {
             dialogueIndex = 0;
             nextButton.transform.GetChild(0).GetComponent<Text>().text = "Next";
             dialogPanel.SetActive(false);
+            if(actionAtFinish != null) actionAtFinish();
 
         }
         

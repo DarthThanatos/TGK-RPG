@@ -8,6 +8,7 @@
 		"stackable" : "false",
 		"itemModifier" : 0,
 		"itemType" : "Weapon",
+		"itemPrice": 200,
 		"stats" : [
 			{
 				"statType": "Power",
@@ -34,6 +35,7 @@
 		"stackable" : "false",
 		"itemType" : "Weapon",
 		"itemModifier" : 0,
+		"itemPrice": 500,
 		"stats" : [
 			{
 				"statType": "Power",
@@ -58,6 +60,7 @@
 		"actionName" : "Drink" ,
 		"stackable" : "true",
 		"itemType" : "Consumable",
+		"itemPrice": 50,
 		"itemModifier" : 0
 	}
 

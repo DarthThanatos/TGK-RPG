@@ -20,11 +20,22 @@ public class CollectionGoal : Goal
     {
         base.Init();
         UIEventHandler.OnItemAddedToInventory += ItemPickedUp;
+        UIEventHandler.OnItemRemovedFromInventory += OnItemRemoved;
+    }
+
+    private void OnItemRemoved(Item item)
+    {
+        if (item.ItemName == ItemName && !Quest.Completed)
+        {
+            CurrentAmount--;
+            Evaluate();
+            QuestEventHandler.GoalUpdated(this);
+        }
     }
 
     void ItemPickedUp(Item item)
     {
-        if (item.ItemName == ItemName && !Completed)
+        if (item.ItemName == ItemName && !Quest.Completed)
         {
             CurrentAmount++;
             Evaluate();
@@ -43,6 +54,6 @@ public class CollectionGoal : Goal
 
     public override string GetGoalState()
     {
-        return "Gathered " + ItemName + ": " + CurrentAmount + "/" + RequiredAmount;
+        return "Gathered " + ItemName + "s: " + CurrentAmount + "/" + RequiredAmount;
     }
 }

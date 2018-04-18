@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class QuestGiver : NPC {
@@ -11,6 +10,7 @@ public class QuestGiver : NPC {
     [SerializeField] private string QuestType;
 
     private Quest Quest { get; set; }
+    private QuestGiverUI QuestGiverUI;
 
 
     public override void Interact()
@@ -39,6 +39,8 @@ public class QuestGiver : NPC {
         Quest = (Quest) Quests.AddComponent(System.Type.GetType(QuestType));
         Quest.init();
         Journal.instance.AddQuest(Quest);
+        DialogSystem.instance.SetActionAtFinish(delegate { GetComponent<QuestGiverUI>().QuestStarted(Quest); });
+        
     }
 
     void CheckQuest()
@@ -51,6 +53,7 @@ public class QuestGiver : NPC {
             HelpedNPC = true;
             QuestAssigned = false;
             DialogSystem.instance.AddNewDialog(new string[] { "Thanks for that!", "Here is your reward!"}, name);
+            DialogSystem.instance.SetActionAtFinish( delegate { GetComponent<QuestGiverUI>().QuestCompleted(); });
         }
         else
         {
