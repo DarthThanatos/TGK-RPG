@@ -87,18 +87,4 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         return optionalItem != null ? optionalItem : InventoryController.instance.FindOneOfName(optionalItemName);
     }
 
-    public void ReplaceItem(Item item)
-    {
-        if (item.stackable)
-        {
-            optionalItemName = item.ItemName;
-            optionalItem = null;
-        }
-        else
-        {
-            optionalItemName = null;
-            optionalItem = item;
-
-        }
-    }
 }

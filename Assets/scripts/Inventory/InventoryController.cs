@@ -115,5 +115,9 @@ public class InventoryController : MonoBehaviour {
         return playerItems.FindAll(x => !playerWeaponController.HasItemEquiped(x));
     }
     
+    public string UUIDToName(System.Guid uuid)
+    {
+        return playerItems.Find(x => x.Uuid == uuid).ItemName;
+    }
 }
 

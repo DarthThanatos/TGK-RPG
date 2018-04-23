@@ -90,6 +90,8 @@ public class MyInventory : MonoBehaviour {
             slotToNonStackableUuidMap[slotOne] = itemInSlotTwo.Uuid;
             if (itemInSlotOne.stackable != itemInSlotTwo.stackable) slotToNonStackableUuidMap.Remove(slotTwo);
         }
+        Debug.Log("Stackables: " + slotToStackableNameMap.Aggregate("", (agg, x) => agg + x.Key.GetComponent<Slot>().id + ": " + x.Value + ", " ));
+        Debug.Log("Nontackables: " + slotToNonStackableUuidMap.Aggregate("", (agg, x) => agg + x.Key.GetComponent<Slot>().id + ": " + InventoryController.instance.UUIDToName(x.Value) + ", "));
     }
 
 
