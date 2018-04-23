@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MyInventory : MonoBehaviour {
 
@@ -20,9 +21,10 @@ public class MyInventory : MonoBehaviour {
     public GameObject inventoryItem;
 
     int slotAmount;
-    private InventoryController invController;
-    public List<Item> items;
     public List<GameObject> slots = new List<GameObject>();
+
+    private Dictionary<GameObject, string> slotToStackableNameMap = new Dictionary<GameObject, string>();
+    private Dictionary<GameObject, System.Guid> slotToNonStackableUuidMap = new Dictionary<GameObject, System.Guid>();
 
     private void Start()
     {
@@ -31,15 +33,9 @@ public class MyInventory : MonoBehaviour {
  
         setOccupiedSlots();
         database = GetComponent<ItemDatabase>();
-        invController = GameObject.Find("Player").GetComponent<InventoryController>();
-
-        items = invController.playerItems;
-        Debug.Log("Drawing...");
-
+        
         for(int i = 0; i < slotAmount; i++)
         {
-            Debug.Log("Drawing " + i);
-            items.Add(new Item());
             slots.Add(Instantiate(inventorySlot));
             slots[i].GetComponent<Slot>().id = i;
             slots[i].transform.SetParent(slotPanel.transform);
@@ -49,17 +45,57 @@ public class MyInventory : MonoBehaviour {
         UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
         UIEventHandler.OnItemEquipped += ItemRemoved;
         UIEventHandler.OnItemUnequipped += ItemAdded;
-        AddItem("Sword_01");
-        AddItem("Staff_01");
-        AddItem("Potion");
 
         inventoryPanel.SetActive(false);
 
     }
 
+    public void MoveItemsInSlots(GameObject oldSlot, GameObject newSlot, Item item)
+    {
+        if (item.stackable)
+        {
+            string name = slotToStackableNameMap[oldSlot];
+            slotToStackableNameMap[newSlot] = name;
+            slotToStackableNameMap.Remove(oldSlot);
+        }
+        else
+        {
+            System.Guid uuid = slotToNonStackableUuidMap[oldSlot];
+            slotToNonStackableUuidMap[newSlot] = uuid;
+            slotToNonStackableUuidMap.Remove(oldSlot);
+
+        }
+    }
+
+    public void SwapItemsInSlots(GameObject slotOne, GameObject slotTwo, Item itemInSlotOne, Item itemInSlotTwo)
+    {
+        if (itemInSlotOne.stackable)
+        {
+            slotToStackableNameMap[slotTwo] = itemInSlotOne.ItemName;
+            if(itemInSlotOne.stackable != itemInSlotTwo.stackable) slotToStackableNameMap.Remove(slotOne);
+        }
+        else
+        {
+            slotToNonStackableUuidMap[slotTwo] = itemInSlotOne.Uuid;
+            if (itemInSlotOne.stackable != itemInSlotTwo.stackable) slotToNonStackableUuidMap.Remove(slotOne);
+        }
+
+        if (itemInSlotTwo.stackable)
+        {
+            slotToStackableNameMap[slotOne] = itemInSlotTwo.ItemName;
+            if (itemInSlotOne.stackable != itemInSlotTwo.stackable) slotToStackableNameMap.Remove(slotTwo);
+        }
+        else
+        {
+            slotToNonStackableUuidMap[slotOne] = itemInSlotTwo.Uuid;
+            if (itemInSlotOne.stackable != itemInSlotTwo.stackable) slotToNonStackableUuidMap.Remove(slotTwo);
+        }
+    }
+
+
     private void ItemAdded(Item item)
     {
-        AddItem(item.ObjectSlug);
+        AddItem(item);
     }
 
     private void ItemRemoved(Item item)
@@ -79,48 +115,64 @@ public class MyInventory : MonoBehaviour {
     public void AddItem(string objectSlug)
     {
         Item itemToAdd = database.GetNewInstanceOfItemWithSlug(objectSlug);
-        
-        if (itemToAdd.stackable && CheckIfItemIsInInventory(itemToAdd))
+        AddItem(itemToAdd);
+    }
+
+
+
+
+    private int FirstEmptySlotIndex()
+    {
+        int i = 0;
+        foreach(GameObject slot in slots)
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].ItemName == itemToAdd.ItemName)
-                {
-                    // the only child in item is text with item amount
-                    Debug.Log("i: " + i + " slots: " + slots.ToString());
-                    Debug.Log("children: " + slots[i].transform.childCount);
-                    ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
-                    data.amount++;
-                    data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
-                    break;
-                }
-            }
+            if (IsSlotEmpty(slot)) return i;
+            i++;
+        }
+        return -1;
+    }
+
+    public bool IsSlotEmpty(GameObject slot)
+    {
+        return !slotToStackableNameMap.ContainsKey(slot) && !slotToNonStackableUuidMap.ContainsKey(slot);
+    }
+
+    public void AddItem(Item itemToAdd)
+    {
+        
+        
+        if (itemToAdd.stackable && InventoryController.instance.CountItemsHavingName(itemToAdd.ItemName) > 1) // && CheckIfItemIsInInventory(itemToAdd)
+        {
+            GameObject slot = slotToStackableNameMap.Where(x => x.Value == itemToAdd.ItemName).First().Key;
+            ItemData data = slot.transform.GetChild(0).GetComponent<ItemData>();
+            data.transform.GetChild(0).GetComponent<Text>().text = InventoryController.instance.CountItemsHavingName(itemToAdd.ItemName).ToString();
+
+            
         }
         else
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].Uuid.Equals(System.Guid.Empty) == true)
-                {
-                    Debug.Log("Adding item " + itemToAdd.ItemName + " on pos: " + i);
-                    items[i] = itemToAdd;
-                    GameObject itemObj = Instantiate(inventoryItem);
-                    itemObj.GetComponent<ItemData>().item = itemToAdd;
-                    itemObj.GetComponent<ItemData>().amount = 1;
-                    itemObj.GetComponent<ItemData>().slot = i;
-                    itemObj.transform.SetParent(slots[i].transform, false);
-                    itemObj.transform.position = slots[i].transform.position;
-                    itemObj.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Icons/" + itemToAdd.ObjectSlug);
-                    itemObj.name = itemToAdd.ItemName;
-                    occupiedSlotsAmount++;
-                    setOccupiedSlots();
-                    break;
-                }
-            }
-        }
+            int index = FirstEmptySlotIndex();
+            GameObject itemObj = Instantiate(inventoryItem);
 
-        // items.Add(itemToAdd);
-        Debug.Log("Added: " + objectSlug + " to inventory");
+            if (itemToAdd.stackable)
+            {
+                slotToStackableNameMap[slots[index]] = itemToAdd.ItemName;
+                itemObj.GetComponent<ItemData>().optionalItemName = itemToAdd.ItemName;
+            }
+            else
+            {
+                slotToNonStackableUuidMap[slots[index]] = itemToAdd.Uuid;
+                itemObj.GetComponent<ItemData>().optionalItem = itemToAdd;
+            }
+            
+            itemObj.GetComponent<ItemData>().slot = index;
+            itemObj.transform.SetParent(slots[index].transform, false);
+            itemObj.transform.position = slots[index].transform.position;
+            itemObj.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Icons/" + itemToAdd.ObjectSlug);
+            itemObj.name = itemToAdd.ItemName;
+            occupiedSlotsAmount++;
+            setOccupiedSlots();
+        }
        
     }
 
@@ -129,66 +181,52 @@ public class MyInventory : MonoBehaviour {
         if (item.stackable)
             RemoveStackableItem(item.ItemName);
         else
-            RemoveNonStackableItem(item.Uuid);
+            RemoveNonStackableItem(item);
     }
 
     void RemoveStackableItem(string itemName)
     {
-        for (int i = 0; i < items.Count; i++)
-        {
-            Debug.Log("itemName: " + itemName);
-            Debug.Log("items[i].ItemName " + items[i].ItemName);
-            if (items[i].ItemName == itemName)
-            {
-                Debug.Log("Wow wow here");
+        GameObject slot = slotToStackableNameMap.Where(x => x.Value == itemName).First().Key; 
+        ItemData data = slot.transform.GetChild(0).GetComponent<ItemData>();
+        int amount = InventoryController.instance.CountItemsHavingName(itemName);
 
-                ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
-                if (data.amount > 1)
-                {
-                    data.amount--;
-                    data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
-                }
-                else {
-                    Destroy(slots[i].transform.GetChild(0).gameObject);
-                    items[i] = new Item();
-                    occupiedSlotsAmount--;
-                    setOccupiedSlots();
-                    // this is needed i.e. when we consume last stackable element, and we have to turn off tooltip 
-                    data.tooltip.Deactivate();
-                }
-                break;
-            }
+        Debug.Log("Removing stackable item: amount: " + amount);
+
+        if (amount >= 1)
+        {
+            data.transform.GetChild(0).GetComponent<Text>().text = amount.ToString();
+        }
+        else
+        {
+            Destroy(slot.transform.GetChild(0).gameObject);
+
+            occupiedSlotsAmount--;
+            setOccupiedSlots();
+
+            // when we consume last stackable element, we have to turn off tooltip 
+            data.tooltip.Deactivate();
+
+            slotToStackableNameMap.Remove(slot);
         }
     }
 
-    void RemoveNonStackableItem(System.Guid uuid)
+    void RemoveNonStackableItem(Item item)
     {
-        for(int i = 0; i < items.Count; i++)
-        {
-            if (items[i].Uuid.Equals(uuid))
-            {
-                ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
-                Destroy(slots[i].transform.GetChild(0).gameObject);
-                items[i] = new Item();
-                occupiedSlotsAmount--;
-                setOccupiedSlots();
-                if (data.tooltip != null)
-                    data.tooltip.Deactivate();
-                break;
-            }
+        GameObject slot = slotToNonStackableUuidMap.Where(x => x.Value == item.Uuid).First().Key; 
+        ItemData data = slot.transform.GetChild(0).GetComponent<ItemData>();
+        Destroy(slot.transform.GetChild(0).gameObject);
 
-        }
+        occupiedSlotsAmount--;
+        setOccupiedSlots();
+
+        // when we dispose of a nonstackable element, we have to turn off tooltip 
+        if (data.tooltip != null)
+            data.tooltip.Deactivate();
+
+        slotToNonStackableUuidMap.Remove(slot);
+
     }
 
-    bool CheckIfItemIsInInventory(Item item)
-    {
-        for(int i = 0; i < items.Count; i++)
-        {
-            if (items[i].ItemName == item.ItemName)
-                return true;
-        }
-        return false;
-    }
 
     void setOccupiedSlots()
     {

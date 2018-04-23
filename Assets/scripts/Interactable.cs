@@ -12,7 +12,6 @@ public class Interactable : MonoBehaviour {
         isEnemy = gameObject.tag == "Enemy";
 		hasInteracted = false;
 		this.playerAgent = playerAgent;
-		playerAgent.stoppingDistance = 2f;
 		playerAgent.destination = this.transform.position;
 	}
 
@@ -22,6 +21,11 @@ public class Interactable : MonoBehaviour {
 			if (playerAgent.remainingDistance <= playerAgent.stoppingDistance) {
                 if(!isEnemy)
                     Interact ();
+                else
+                {
+
+                    GameObject.Find("Player").GetComponent<PlayerWeaponController>().PerformWeaponAttack();
+                }
                 EnsureLookDirection();
 				hasInteracted = true;
 			}

@@ -20,13 +20,22 @@ public class InventoryUI : MonoBehaviour {
     void Start() {
         uuidToPrefab = new Dictionary<System.Guid, GameObject>();
         itemContainer = Resources.Load<InventoryUIItem>("UI/Item_Container");
+        
+        //UIEventHandler.OnItemAddedToInventory += ItemAdded;
+        //UIEventHandler.OnItemRemovedFromInventory += ItemRemoved;
+
 
 
         UIEventHandler.OnItemEquipped += ItemEquipped;
         UIEventHandler.OnItemUnequipped += ItemUneqipped;
 
-
+        //inventoryPanel.gameObject.SetActive(false);
     }
+
+    //private void ItemAdded(Item item)
+    //{
+    //    AddItemRepresentation(item);
+    //}
 
     private void ItemEquipped(Item item)
     {
@@ -47,6 +56,7 @@ public class InventoryUI : MonoBehaviour {
     void UpdateItemNumbersUI()
     {
         int numberOfItems = InventoryController.instance.playerItems.Count;
+        //itemsNumber.text = numberOfItems.ToString() + " items in the inventory";
     }
 
     private void RemoveItemRepresentation(Item item)
@@ -61,7 +71,7 @@ public class InventoryUI : MonoBehaviour {
 
     private void AddItemRepresentation(Item item)
     {
-        Debug.Log("Inventory UI adding item with uuid: " + item.Uuid + "Items in map: " + uuidToPrefab.Count);
+        //Debug.Log("Inventory UI adding item with uuid: " + item.Uuid + "Items in map: " + uuidToPrefab.Count);
         InventoryUIItem emptyItem = Instantiate(itemContainer);
         emptyItem.SetItem(item);
         emptyItem.transform.SetParent(scrollViewContent, false);
@@ -69,5 +79,13 @@ public class InventoryUI : MonoBehaviour {
         UpdateItemNumbersUI();
     }
 
+    //        void Update()
+    //    {
+    //        if (Input.GetKeyDown(KeyCode.I))
+    //        {
+    //            menuIsActive = !menuIsActive;
+    //            inventoryPanel.gameObject.SetActive(menuIsActive);
+    //        }
+    //    }
  
 }

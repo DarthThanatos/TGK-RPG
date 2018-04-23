@@ -13,7 +13,7 @@ public class Shopkeeper : Interactable {
 
     private List<Item> shopItems;
     private int currentBalance = 0;
-    private float priceMultiplier = .5f;
+    public float priceMultiplier = .5f;
 
     void Start()
     {

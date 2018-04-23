@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon {
 
@@ -40,5 +41,11 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon {
         {
             collider.GetComponent<IEnemy>().takeDamage(damageToGive);
         }
+    }
+
+    public void OnTargetInteraction(NavMeshAgent playerNavMeshAgent)
+    {
+        playerNavMeshAgent.stoppingDistance = fireBall.range;
+        Debug.Log("Staff: stopping distance: 20");
     }
 }

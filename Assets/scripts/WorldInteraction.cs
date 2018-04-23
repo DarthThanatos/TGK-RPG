@@ -6,9 +6,11 @@ public class WorldInteraction : MonoBehaviour {
 
 	NavMeshAgent playerAgent;
     private Interactable lastInteractedObject;
+    private PlayerWeaponController playerWeaponController;
 
 	void Start () {
 		playerAgent = GetComponent<NavMeshAgent> ();
+        playerWeaponController = GetComponent<PlayerWeaponController>();
 	}
 
 
@@ -33,12 +35,14 @@ public class WorldInteraction : MonoBehaviour {
 			GameObject interactedObject = interactionInfo.collider.gameObject;
             if(interactedObject.tag == "Enemy")
             {
-                CancelLastInteractable();
+                CancelLastInteractable(interactedObject.GetComponent<Interactable>());
+                playerWeaponController.OnTargetInteraction(playerAgent);
                 interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
             }
 			else if (interactedObject.tag == "Interactable Object")
             {
                 CancelLastInteractable(interactedObject.GetComponent<Interactable>());
+                playerAgent.stoppingDistance = 2f;
                 interactedObject.GetComponent<Interactable> ().MoveToInteraction(playerAgent);
 			} 
 			else

@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerWeaponController : MonoBehaviour {
 
@@ -16,6 +17,17 @@ public class PlayerWeaponController : MonoBehaviour {
     {
         spawnProjectile = transform.Find("ProjectileSpawn");
         characterStats = GetComponent<Player>().characterStats;
+    }
+
+
+    public int NumberOfItemsWithName(string name)
+    {
+        return currentlyEquipedWeaponItem != null && currentlyEquipedWeaponItem.ItemName == name ? 1 : 0;
+    }
+    
+    public bool HasItemEquiped(Item item)
+    {
+        return currentlyEquipedWeaponItem != null && item.Uuid == currentlyEquipedWeaponItem.Uuid;
     }
 
     public void EquipWeapon(Item itemToEquip)
@@ -80,11 +92,23 @@ public class PlayerWeaponController : MonoBehaviour {
         }
     }
 
+    public void OnTargetInteraction(NavMeshAgent playerNavMeshAgent)
+    {
+        if(weaponComponent != null)
+        {
+            weaponComponent.OnTargetInteraction(playerNavMeshAgent);
+        }
+        else
+        {
+            playerNavMeshAgent.stoppingDistance = 2f;
+        }
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            PerformWeaponAttack();
+            //PerformWeaponAttack();
         }
     }
 

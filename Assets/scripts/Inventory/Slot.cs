@@ -1,38 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Slot : MonoBehaviour, IDropHandler {
     public int id;
-    private MyInventory inv;
+    private MyInventory myInv;
 
     void Start()
     {
-        inv = GameObject.Find("Inventory").GetComponent<MyInventory>();
+        myInv = GameObject.Find("Inventory").GetComponent<MyInventory>();
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        ItemData droppedItem = eventData.pointerDrag.GetComponent<ItemData>();
-        if(inv.items[id].Uuid.Equals(System.Guid.Empty) == true)
-        {
-            inv.items[droppedItem.slot] = new Item();
-            inv.items[id] = droppedItem.item;
-            droppedItem.slot = id;
-        }
-        else if(droppedItem.slot != id)
-        {
-            Transform item = this.transform.GetChild(0); 
-            item.GetComponent<ItemData>().slot = droppedItem.slot; 
-            item.transform.SetParent(inv.slots[droppedItem.slot].transform); 
-            item.transform.position = inv.slots[droppedItem.slot].transform.position; 
-            inv.items[droppedItem.slot] = item.GetComponent<ItemData>().item; 
+        ItemData droppedItemData = eventData.pointerDrag.GetComponent<ItemData>();
 
-            droppedItem.slot = id;
-            droppedItem.transform.SetParent(this.transform);
-            droppedItem.transform.position = this.transform.position;
-            inv.items[id] = droppedItem.item;
+        if (myInv.IsSlotEmpty(gameObject))
+        {
+            myInv.MoveItemsInSlots(myInv.slots[droppedItemData.slot], gameObject, droppedItemData.FetchItem());
+            droppedItemData.slot = id;
+        }
+        else if (droppedItemData.slot != id) //if not dropped on the same slot we started from
+        {
+            Transform itemTransform = transform.GetChild(0);
+            ItemData currentItemData = itemTransform.GetComponent<ItemData>();
+
+            Item currentItem = currentItemData.FetchItem();
+            Item dropDataItem = droppedItemData.FetchItem();
+
+            myInv.SwapItemsInSlots(gameObject, myInv.slots[droppedItemData.slot], currentItem, dropDataItem);
+            
+            itemTransform.transform.SetParent(myInv.slots[droppedItemData.slot].transform);
+            itemTransform.transform.position = myInv.slots[droppedItemData.slot].transform.position;
+            itemTransform.GetComponent<ItemData>().slot = droppedItemData.slot;
+
+            droppedItemData.transform.SetParent(transform);
+            droppedItemData.transform.position = transform.position;
+            droppedItemData.slot = id;
         }
     }
 }

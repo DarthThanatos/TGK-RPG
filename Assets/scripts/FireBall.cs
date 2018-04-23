@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FireBall : MonoBehaviour {
     public Vector3 direction { get; set; }
-    public float range { get; set; }
+    public float range = 20;
     public int damage { get; set; }
 
     [SerializeField] private LayerMask aggroLayerMask;
@@ -16,7 +16,6 @@ public class FireBall : MonoBehaviour {
 
     void Start()
     {
-        range = 20;
         spawnPosition = transform.position;
         GetComponent<Rigidbody>().AddForce(direction * 50f);
         componentParticleSystem = GetComponent<ParticleSystem>();

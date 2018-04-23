@@ -6,48 +6,52 @@ using UnityEngine.EventSystems;
 public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, 
     IPointerExitHandler, IPointerDownHandler
 {
-    public Item item;
-    public int amount;
+
+    public string optionalItemName; //if optionalItem == null, assuming it holds stackable item name
+    public Item optionalItem; //if itemName == null,  assuming it holds nonstackable item
+
     public int slot;
 
-    private MyInventory inv;
+    private MyInventory myInv;
     public Tooltip tooltip;
 
     void Start()
     {
-        inv = GameObject.Find("Inventory").GetComponent<MyInventory>();
-        tooltip = inv.GetComponent<Tooltip>();
+        myInv = GameObject.Find("Inventory").GetComponent<MyInventory>();
+        tooltip = myInv.GetComponent<Tooltip>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left && item.Uuid.Equals(System.Guid.Empty) == false)
+        if (eventData.button == PointerEventData.InputButton.Left && optionalItemName != null) //item.Uuid.Equals(System.Guid.Empty) == false
         {
             // parent of item -> slot, parent of slot -> slotPanel
-            this.transform.SetParent(this.transform.parent.parent);
-            this.transform.position = eventData.position;
+            transform.SetParent(transform.parent.parent);
+            transform.position = eventData.position;
             GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (item != null)
+        if (FetchItem() != null)
         {
-            this.transform.position = eventData.position;
+            transform.position = eventData.position;
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        this.transform.SetParent(inv.slots[slot].transform);
-        this.transform.position = inv.slots[slot].transform.position;
+        transform.SetParent(myInv.slots[slot].transform);
+        transform.position = myInv.slots[slot].transform.position;
         GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tooltip.Activate(item);
+
+        Item item = FetchItem();
+        if (item != null) tooltip.Activate(item);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -57,9 +61,11 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        Item item = FetchItem();
+        if (item == null) return;
         if (Input.GetButton("Fire3") && Input.GetMouseButtonDown(0) && item.Uuid.Equals(System.Guid.Empty) == false)
         {
-            inv.RemoveItem(item);
+            InventoryController.instance.RemoveItem(item);
         }
 
         if (eventData.button == PointerEventData.InputButton.Right && item.Uuid.Equals(System.Guid.Empty) == false)
@@ -73,6 +79,26 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             {
                 InventoryController.instance.ConsumeItem(item);
             }
+        }
+    }
+
+    public Item FetchItem()
+    {
+        return optionalItem != null ? optionalItem : InventoryController.instance.FindOneOfName(optionalItemName);
+    }
+
+    public void ReplaceItem(Item item)
+    {
+        if (item.stackable)
+        {
+            optionalItemName = item.ItemName;
+            optionalItem = null;
+        }
+        else
+        {
+            optionalItemName = null;
+            optionalItem = item;
+
         }
     }
 }

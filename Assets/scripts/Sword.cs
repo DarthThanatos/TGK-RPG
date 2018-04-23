@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Sword : MonoBehaviour, IWeapon {
 
@@ -31,4 +32,9 @@ public class Sword : MonoBehaviour, IWeapon {
         }
     }
 
+    public void OnTargetInteraction(NavMeshAgent playerNavMeshAgent)
+    {
+        playerNavMeshAgent.stoppingDistance = 3;
+        Debug.Log("Sword: stopping distance: 3");
+    }
 }

@@ -7,14 +7,15 @@ public class InventoryController : MonoBehaviour {
 
     public static InventoryController instance { get; set; }
 
-    public PlayerWeaponController playerWeaponController;
-    public ConsumableController consumableController;
+    private PlayerWeaponController playerWeaponController;
+    private ConsumableController consumableController;
     public InventoryUIDetails inventoryDetailsPanel;
 
     public List<Item> playerItems = new List<Item>();
 
     void Start()
     {
+
         consumableController = GetComponent<ConsumableController>();
         playerWeaponController = GetComponent<PlayerWeaponController>();
 
@@ -26,6 +27,18 @@ public class InventoryController : MonoBehaviour {
             instance = this;
         }
 
+        for(int i = 0; i < 16; i++)
+        {
+            playerItems.Add(null);
+            playerItems[i] = new Item();
+        }
+
+        giveItem("Sword_01");
+        giveItem("Sword_01" );
+        giveItem("Staff_01");
+        giveItem("Potion");
+        giveItem("Potion");
+
     }
 
 
@@ -33,21 +46,26 @@ public class InventoryController : MonoBehaviour {
     public void giveItem(string objectSlug)
     {
         Item item = ItemDatabase.instance.GetNewInstanceOfItemWithSlug(objectSlug);
-        Debug.Log(playerItems.Count + " items in inventory. Added: " + objectSlug);
-        UIEventHandler.ItemAddedToInventory(item);
+        AddItemToInventory(item);
     }
+
 
 
     public void giveItem(Item item)
     {
-        Debug.Log(playerItems.Count + " items in inventory. Added: " + item.ObjectSlug);
-        UIEventHandler.ItemAddedToInventory(item);
-
+        AddItemToInventory(item);
     }
 
-    public int countItemsHavingName(string name)
+
+    private void AddItemToInventory(Item item)
     {
-        return playerItems.FindAll(x => x.ItemName == name).Count;
+        playerItems.Add(item);
+        UIEventHandler.ItemAddedToInventory(item);
+    }
+
+    public int CountItemsHavingName(string name)
+    {
+        return playerItems.FindAll(x => x.ItemName == name).Count; // + playerWeaponController.NumberOfItemsWithName(name);
     }
 
     public void SetItemDetails(Item item, Button selectedButton)
@@ -69,12 +87,14 @@ public class InventoryController : MonoBehaviour {
     public void ConsumeItem(Item itemToConsume)
     {
         consumableController.consumeItem(itemToConsume);
+        playerItems.Remove(itemToConsume);
         UIEventHandler.ItemRemovedFromInventory(itemToConsume);
     }
 
     public void RemoveItem(Item item)
     {
         playerWeaponController.UnequipCurrentWeaponIfMatches(item);
+        playerItems.Remove(item);
         UIEventHandler.ItemRemovedFromInventory(item);
     }
 
@@ -83,5 +103,17 @@ public class InventoryController : MonoBehaviour {
         Item itemByName = playerItems.Find(x => x.ItemName == name);
         RemoveItem(itemByName);
     }
+
+
+    public Item FindOneOfName(string name)
+    {
+        return playerItems.Find(x => x.ItemName == name);
+    }
+
+    public List<Item> NotEquippedItemsList()
+    {
+        return playerItems.FindAll(x => !playerWeaponController.HasItemEquiped(x));
+    }
+    
 }
 

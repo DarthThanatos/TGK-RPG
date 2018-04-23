@@ -26,7 +26,51 @@ public class ShopKeeperUI : Interactable {
     {
         EconomyEventHandel.OnBalanceChanged += OnBalanceChanged;
         EconomyEventHandel.OnPlayerGoldChanged += OnPlayerGoldChanged;
+
+        UIEventHandler.OnItemAddedToInventory += OnItemAddedToInventory;
+        UIEventHandler.OnItemRemovedFromInventory += OnItemRemovedFromInventory;
+        UIEventHandler.OnItemEquipped += OnItemEquipped;
+        UIEventHandler.OnItemUnequipped += OnItemUnequipped;
+
         shopItemPrefab = Resources.Load<GameObject>("UI/ShopItem");
+    }
+
+    private void OnItemUnequipped(Item item)
+    {
+        if (!isDialogActive) return;
+        AddItemToParentContent(new List<Item>() { item }, playerScrollContent, playerGameObjects, shopkeeper.priceMultiplier);
+    }
+
+    private void OnItemEquipped(Item item)
+    {
+        if (!isDialogActive) return;
+        RemoveItemRepresentation(item);
+    }
+
+    private void OnItemRemovedFromInventory(Item item)
+    {
+        if (!isDialogActive) return;
+        RemoveItemRepresentation(item);
+    }
+
+    private void OnItemAddedToInventory(Item item)
+    {
+        if (!isDialogActive) return;
+        AddItemToParentContent(new List<Item>() { item }, playerScrollContent, playerGameObjects, shopkeeper.priceMultiplier);
+    }
+
+    private void RemoveItemRepresentation(Item item)
+    {
+        if (!playerGameObjects.ContainsKey(item.Uuid)) return;
+
+        GameObject toDestroy = playerGameObjects[item.Uuid];
+
+        Toggle toggle = toDestroy.transform.Find("Toggle").GetComponent<Toggle>();
+        if (toggle.isOn) OnShopItemSelectionStatusChanged(toDestroy, false, shopkeeper.priceMultiplier); //balance of an item-to-be-destroyed must be unchecked if selected
+        
+        Destroy(playerGameObjects[item.Uuid].gameObject);
+        playerGameObjects.Remove(item.Uuid);
+        representationToItemMap.Remove(toDestroy);
     }
 
     private void OnPlayerGoldChanged()
@@ -62,7 +106,7 @@ public class ShopKeeperUI : Interactable {
         DestroyChildrenOfParent(playerScrollContent);
 
         AddItemToParentContent(shopItems, shopkeeperScrollContent, shopGameObjects, priceMultiplier: 1);
-        AddItemToParentContent(InventoryController.instance.playerItems, playerScrollContent, playerGameObjects, priceMultiplier: priceMultiplier);
+        AddItemToParentContent(InventoryController.instance.NotEquippedItemsList(), playerScrollContent, playerGameObjects, priceMultiplier: priceMultiplier);
 
         balanceLabel.text = "Balance: 0";
         playerGoldLabel.text = "Your gold: " + EconomySystem.instance.PlayerMoney.ToString();
@@ -107,7 +151,7 @@ public class ShopKeeperUI : Interactable {
     {
         foreach (Item item in items)
         {
-            if (item.Uuid.Equals(System.Guid.Empty) == false)
+            if (item.Uuid.Equals(Guid.Empty) == false)
             {
                 GameObject itemRepresentation = Instantiate(shopItemPrefab);
                 itemRepresentation.transform.Find("ItemImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Icons/" + item.ObjectSlug); ;
