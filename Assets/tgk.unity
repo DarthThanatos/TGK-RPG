@@ -1555,7 +1555,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1a473028a26a39e4fafac8e91a6880c6, type: 2}
+  - {fileID: 2100000, guid: ff32818ef85b7514aac92bfd5306d59d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9608,6 +9608,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23388440238840092, guid: acaa5dc1d79c2a442ae18741b8890edc,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ff32818ef85b7514aac92bfd5306d59d, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: acaa5dc1d79c2a442ae18741b8890edc, type: 2}
   m_IsPrefabParent: 0

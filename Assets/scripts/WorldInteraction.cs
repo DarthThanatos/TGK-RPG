@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class WorldInteraction : MonoBehaviour {
 
 	NavMeshAgent playerAgent;
+    private Interactable lastInteractedObject;
 
 	void Start () {
 		playerAgent = GetComponent<NavMeshAgent> ();
@@ -22,6 +23,8 @@ public class WorldInteraction : MonoBehaviour {
 
 	}
 
+
+
 	void GetInteraction(){
 		Ray interactionRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit interactionInfo;
@@ -30,15 +33,17 @@ public class WorldInteraction : MonoBehaviour {
 			GameObject interactedObject = interactionInfo.collider.gameObject;
             if(interactedObject.tag == "Enemy")
             {
+                CancelLastInteractable();
                 interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
             }
 			else if (interactedObject.tag == "Interactable Object")
             {
+                CancelLastInteractable(interactedObject.GetComponent<Interactable>());
                 interactedObject.GetComponent<Interactable> ().MoveToInteraction(playerAgent);
 			} 
 			else
             {
-
+                CancelLastInteractable();
                 playerAgent.stoppingDistance = 0;
 				playerAgent.destination = interactionInfo.point;
 
@@ -46,4 +51,14 @@ public class WorldInteraction : MonoBehaviour {
 		}
 			
 	}
+
+    private void CancelLastInteractable(Interactable currentInteractable = null)
+    {
+        if (lastInteractedObject != null)
+        {
+            Debug.Log("Cancelling action of " + lastInteractedObject.name);
+            lastInteractedObject.CancelAction();
+        }
+        lastInteractedObject = currentInteractable;
+    }
 }
