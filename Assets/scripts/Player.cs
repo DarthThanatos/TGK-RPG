@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour {
 
@@ -13,9 +14,9 @@ public class Player : MonoBehaviour {
         get { return _currentHealth; }
         set {
             int prevHealth = _currentHealth;
-            _currentHealth = value;
+            _currentHealth = Math.Min(value, maxHealth);
             if (prevHealth != _currentHealth)
-                UIEventHandler.HealthChanged( _currentHealth, maxHealth);
+                 UIEventHandler.HealthChanged( _currentHealth, maxHealth);
         }
     }
 

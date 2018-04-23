@@ -5,6 +5,7 @@
 		"itemName" : "Sword",
 		"description" : "A long, sharp blade, excellent when used in short-range attacks" ,
 		"actionName" : "Equip" ,
+		"stackable" : "false",
 		"itemModifier" : 0,
 		"itemType" : "Weapon",
 		"itemPrice": 200,
@@ -31,6 +32,7 @@
 		"itemName" : "Staff",
 		"description" : "A long staff, capable of shooting fireballs" ,
 		"actionName" : "Equip" ,
+		"stackable" : "false",
 		"itemType" : "Weapon",
 		"itemModifier" : 0,
 		"itemPrice": 500,
@@ -56,6 +58,7 @@
 		"itemName" : "Potion",
 		"description" : "A log potion" ,
 		"actionName" : "Drink" ,
+		"stackable" : "true",
 		"itemType" : "Consumable",
 		"itemPrice": 50,
 		"itemModifier" : 0
