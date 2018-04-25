@@ -5,22 +5,31 @@ public class CollectionGoal : Goal
 {
     public string ItemName { get; set; }
 
-    public CollectionGoal(Quest Quest, string ItemName, string Description, bool Completed, int CurrentAmount, int RequiredAmount)
+    public CollectionGoal(Quest Quest, Phase Phase, string ItemName, string Description, bool Completed, int CurrentAmount, int RequiredAmount)
     {
         this.Quest = Quest;
+        this.Phase = Phase;
         this.ItemName = ItemName;
         this.Description = Description;
         this.Completed = Completed;
         this.CurrentAmount = CurrentAmount;
         this.RequiredAmount = RequiredAmount;
+
+        UIEventHandler.OnItemRemovedFromInventory += OnItemRemoved;
+
         Evaluate();
+
     }
 
     public override void Init()
     {
         base.Init();
         UIEventHandler.OnItemAddedToInventory += ItemPickedUp;
-        UIEventHandler.OnItemRemovedFromInventory += OnItemRemoved;
+    }
+
+    public override void UnInit()
+    {
+        UIEventHandler.OnItemAddedToInventory -= ItemPickedUp;
     }
 
     private void OnItemRemoved(Item item)
@@ -29,16 +38,19 @@ public class CollectionGoal : Goal
         {
             CurrentAmount--;
             Evaluate();
+            Phase.CheckGoals();
             QuestEventHandler.GoalUpdated(this);
         }
     }
 
     void ItemPickedUp(Item item)
     {
+        if (!Phase.Active) return;
         if (item.ItemName == ItemName && !Quest.Completed)
         {
             CurrentAmount++;
             Evaluate();
+            Phase.CheckGoals();
             QuestEventHandler.GoalUpdated(this);
         }
     }

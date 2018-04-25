@@ -15,7 +15,8 @@ public class QuestGiver : NPC {
 
     public override void Interact()
     {
-        if(!QuestAssigned && !HelpedNPC)
+        TalkEvents.TalkedToNPC(npcName);
+        if (!QuestAssigned && !HelpedNPC)
         {
             Debug.Log("First");
             base.Interact();

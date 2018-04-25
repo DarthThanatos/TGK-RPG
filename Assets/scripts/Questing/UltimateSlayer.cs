@@ -14,11 +14,23 @@ public class UltimateSlayer : Quest {
         GoldReward = 500;
         IsMain = false;
 
-        Goals = new List<Goal>();
-        Goals.Add(new KillGoal(this, 0, "Kill 5 Slimes", false, 4, 5));
-        Goals.Add(new CollectionGoal(this, "Sword", "Bring me 3 swords", false, InventoryController.instance.CountItemsHavingName("Sword"), 3));
+        Phases = new List<Phase>();
 
-        Goals.ForEach(x => x.Init());
+        Phase phaseOne = new Phase(this, true, false);
+        List<Goal> PhaseOneGoals = new List<Goal>();
+        PhaseOneGoals.Add(new KillGoal(this, phaseOne, 0, "Kill 5 Slimes", false, 4, 5));
+        PhaseOneGoals.Add(new CollectionGoal(this, phaseOne, "Sword", "Bring me 3 swords", false, InventoryController.instance.CountItemsHavingName("Sword"), 3));
+        phaseOne.Goals = PhaseOneGoals;
+
+        Phase phaseTwo = new Phase(this, true, false);
+        List<Goal> PhaseTwoGoals = new List<Goal>();
+        PhaseTwoGoals.Add(new TalkGoal(this, phaseTwo, "PasserBy", "Talk to", false, 0, 1));
+        phaseTwo.Goals = PhaseTwoGoals;
+
+        Phases.Add(phaseOne);
+        Phases.Add(phaseTwo);
+
+        phaseOne.Init();
     }
 
 	

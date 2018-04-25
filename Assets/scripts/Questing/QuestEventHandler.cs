@@ -8,6 +8,7 @@ public class QuestEventHandler : MonoBehaviour {
     public static event QuestHandler OnQuestAdded;
     public static event QuestHandler OnQuestFinished;
     public static event QuestHandler OnDisplayQuestDetails;
+    public static event QuestHandler OnQuestStateChanged;
 
 
     public delegate void QuestUnselecter();
@@ -17,6 +18,14 @@ public class QuestEventHandler : MonoBehaviour {
 
     public delegate void GoalHandler(Goal goal);
     public static event GoalHandler OnGoalUpdated;
+
+    public static void QuestStateChanged(Quest quest)
+    {
+        if(OnQuestStateChanged != null)
+        {
+            OnQuestStateChanged(quest);
+        }
+    }
 
     public static void AddedQuest(Quest quest)
     {

@@ -20,6 +20,13 @@ public class JournalUIDetails : MonoBehaviour {
         QuestEventHandler.OnGoalUpdated += OnGoalUpdated;
         QuestEventHandler.OnQuestFinished += OnQuestFinished;
         QuestEventHandler.OnUnselectQuest += OnUnselectQuest;
+        QuestEventHandler.OnQuestStateChanged += OnQuestStateChanged;
+    }
+
+    private void OnQuestStateChanged(Quest quest)
+    {
+        DestroyOldGoals();
+        InitNewGoals(quest);
     }
 
     private void OnUnselectQuest()
@@ -62,7 +69,7 @@ public class JournalUIDetails : MonoBehaviour {
 	
     private void InitNewGoals(Quest quest)
     {
-        foreach(Goal goal in quest.Goals)
+        foreach(Goal goal in quest.GoalsUpToCurrentPhase())
         {
             GameObject GoalState = Instantiate(Resources.Load<GameObject>("UI/GoalState"));
             GoalState.transform.Find("Label").GetComponent<Text>().text = goal.GetGoalState();

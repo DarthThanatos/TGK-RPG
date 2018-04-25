@@ -1,38 +1,40 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-class KillGoal : Goal
-{
-    public int EnemyID { get; set; }
-    private Vector3 goalArea = new Vector3(-40, 2.5f, -65);
+public class TalkGoal : Goal {
 
-    private GameObject questPointer; //for 3D navigation
+    private string NPCName;
+    private Vector3 goalArea;
     private GameObject navigationUI; //for 2D navigation
 
-
-    public KillGoal(Quest Quest, Phase Phase, int EnemyID, string Description, Boolean Completed, int CurrentAmount, int RequiredAmount)
+    public TalkGoal(Quest Quest, Phase Phase, string NPCName, string Description, Boolean Completed, int CurrentAmount, int RequiredAmount)
     {
         this.Quest = Quest;
         this.Phase = Phase;
-        this.EnemyID = EnemyID;
+        this.NPCName = NPCName;
         this.Description = Description;
         this.Completed = Completed;
         this.CurrentAmount = CurrentAmount;
         this.RequiredAmount = RequiredAmount;
+
+        goalArea = GameObject.Find(NPCName).transform.position;
     }
+
 
     public override void Init()
     {
         base.Init();
         InitNavigationPanel();
-
-        CombatEvents.OnEnemyDeath += EnemyDied;
+        TalkEvents.OnTalkedToNPC += OnTalkedToNPC;
     }
 
-    void EnemyDied(IEnemy enemy)
+    private void OnTalkedToNPC(string NPCName)
     {
+
         if (!Phase.Active) return;
-        if (enemy.ID == EnemyID && !Completed)
+        if (this.NPCName == NPCName && !Completed)
         {
             CurrentAmount++;
             Evaluate();
@@ -41,16 +43,9 @@ class KillGoal : Goal
         }
     }
 
-    public override void UnInit()
-    {
-        UnityEngine.Object.Destroy(navigationUI);
-        CombatEvents.OnEnemyDeath -= EnemyDied;
-    }
-
-
     public override string GetGoalState()
     {
-        return "Killed " + EnemyCatalogue.enemies[EnemyID] + "s: " + CurrentAmount + "/" + RequiredAmount;
+        return "Talked to " + NPCName + ": " + CurrentAmount + "/" + RequiredAmount;
     }
 
     public override void Evaluate()
@@ -58,6 +53,12 @@ class KillGoal : Goal
         base.Evaluate();
         Navigation2D();
         Debug.Log("2d");
+    }
+
+    public override void UnInit()
+    {
+        UnityEngine.Object.Destroy(navigationUI);
+        TalkEvents.OnTalkedToNPC -= OnTalkedToNPC;
     }
 
     private void Navigation2D()
@@ -82,26 +83,4 @@ class KillGoal : Goal
         navigationUI.GetComponent<NavigationUI>().Init(goalArea);
         navigationUI.transform.SetParent(GameObject.Find("Canvas").gameObject.transform);
     }
-
-    private void Navigation3D()
-    {
-        if (Completed || !Phase.Active)
-        {
-            UnityEngine.Object.Destroy(questPointer);
-        }
-        else
-        {
-            if (questPointer != null)
-            {
-                InitQuestPointer();
-            }
-        }
-    }
-
-    private void InitQuestPointer()
-    {
-        questPointer = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("QuestArrow"));
-        questPointer.GetComponent<QuestArrow>().Init(goalArea);
-    }
 }
-

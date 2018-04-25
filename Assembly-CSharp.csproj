@@ -99,12 +99,14 @@
      <Compile Include="Assets\scripts\Questing\JournalUIDetails.cs" />
      <Compile Include="Assets\scripts\Questing\KillGoal.cs" />
      <Compile Include="Assets\scripts\Questing\NavigationUI.cs" />
+     <Compile Include="Assets\scripts\Questing\Phase.cs" />
      <Compile Include="Assets\scripts\Questing\Quest.cs" />
      <Compile Include="Assets\scripts\Questing\QuestArrow.cs" />
      <Compile Include="Assets\scripts\Questing\QuestDetailsUI.cs" />
      <Compile Include="Assets\scripts\Questing\QuestEventHandler.cs" />
      <Compile Include="Assets\scripts\Questing\QuestGiver.cs" />
      <Compile Include="Assets\scripts\Questing\QuestGiverUI.cs" />
+     <Compile Include="Assets\scripts\Questing\TalkGoal.cs" />
      <Compile Include="Assets\scripts\Questing\UltimateSlayer.cs" />
      <Compile Include="Assets\scripts\Shopping\EconomyEventHandel.cs" />
      <Compile Include="Assets\scripts\Shopping\EconomySystem.cs" />
@@ -117,6 +119,7 @@
      <Compile Include="Assets\scripts\Staff.cs" />
      <Compile Include="Assets\scripts\StatBonus.cs" />
      <Compile Include="Assets\scripts\Sword.cs" />
+     <Compile Include="Assets\scripts\TalkEvents.cs" />
      <Compile Include="Assets\scripts\Test.cs" />
      <Compile Include="Assets\scripts\WorldInteraction.cs" />
      <None Include="Assets\Resources\ShopDB\shoplist_2.txt" />

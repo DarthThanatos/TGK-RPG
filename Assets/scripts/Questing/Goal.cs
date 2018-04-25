@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public abstract class Goal
@@ -9,9 +8,14 @@ public abstract class Goal
     public int CurrentAmount { get; set; }
     public int RequiredAmount { get; set; }
     public Quest Quest { get; set; }
-
+    public Phase Phase { get; set; }
 
     public virtual void Init()
+    {
+
+    }
+
+    public virtual void UnInit()
     {
 
     }
