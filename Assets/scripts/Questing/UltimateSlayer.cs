@@ -18,7 +18,7 @@ public class UltimateSlayer : Quest {
 
         Phase phaseOne = new Phase(this, true, false);
         List<Goal> PhaseOneGoals = new List<Goal>();
-        PhaseOneGoals.Add(new KillGoal(this, phaseOne, 0, "Kill 5 Slimes", false, 4, 5));
+        PhaseOneGoals.Add(new KillGoal(this, phaseOne, 0, "Kill 5 Slimes", false, 0, 5));
         PhaseOneGoals.Add(new CollectionGoal(this, phaseOne, "Sword", "Bring me 3 swords", false, InventoryController.instance.CountItemsHavingName("Sword"), 3));
         phaseOne.Goals = PhaseOneGoals;
 
