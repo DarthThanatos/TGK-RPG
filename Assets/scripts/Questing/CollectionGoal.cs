@@ -36,7 +36,7 @@ public class CollectionGoal : Goal
     {
         if (item.ItemName == ItemName && !Quest.Completed)
         {
-            CurrentAmount--;
+            CurrentAmount = InventoryController.instance.CountItemsHavingName(ItemName);
             Evaluate();
             Phase.CheckGoals();
             QuestEventHandler.GoalUpdated(this);
@@ -48,7 +48,7 @@ public class CollectionGoal : Goal
         if (!Phase.Active) return;
         if (item.ItemName == ItemName && !Quest.Completed)
         {
-            CurrentAmount++;
+            CurrentAmount = InventoryController.instance.CountItemsHavingName(ItemName);
             Evaluate();
             Phase.CheckGoals();
             QuestEventHandler.GoalUpdated(this);
