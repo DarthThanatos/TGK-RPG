@@ -10,6 +10,7 @@ public abstract class Goal
     public int RequiredAmount { get; set; }
     public Quest Quest { get; set; }
 
+
     public virtual void Init()
     {
 
@@ -22,7 +23,7 @@ public abstract class Goal
 
     public abstract string GetGoalState();
 
-    public void Evaluate()
+    public virtual void Evaluate()
     {
         Debug.Log("Current: " + CurrentAmount + " required: " + RequiredAmount);
         if (CurrentAmount >= RequiredAmount)
