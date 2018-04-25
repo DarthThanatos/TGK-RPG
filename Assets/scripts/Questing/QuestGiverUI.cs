@@ -6,6 +6,8 @@ public class QuestGiverUI : MonoBehaviour {
     private GameObject questSign;
     private bool shouldShowMessage = false;
 
+    [SerializeField] private AudioSource updatedJournalSound, questCompletedSound;
+
     private string msgToShow;
     private Quest quest;
 
@@ -18,6 +20,7 @@ public class QuestGiverUI : MonoBehaviour {
     {
         this.quest = quest;
         ShowMsg("Updated my Journal", 3f);
+        updatedJournalSound.Play();
     }
 
     private void ShowMsg(string msgToShow, float period)
@@ -34,6 +37,7 @@ public class QuestGiverUI : MonoBehaviour {
 
     public void QuestCompleted()
     {
+        questCompletedSound.Play();
         ShowMsg(
             "Quest Finished\n\n\nReward:\n\n" +
             "- Item: " + quest.ItemReward.ItemName + "\n" +

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour{
@@ -26,9 +24,6 @@ public class MusicPlayer : MonoBehaviour{
             InvokeRepeating("FadeInWarAudioGradually", 0, .5f);
         }
     }
-
-
-
 
     private void FadeInWarAudioGradually()
     {

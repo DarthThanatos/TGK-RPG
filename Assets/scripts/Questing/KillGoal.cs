@@ -4,7 +4,7 @@ using UnityEngine;
 class KillGoal : Goal
 {
     public int EnemyID { get; set; }
-    private Vector3 goalArea = new Vector3(-40, 2.5f, -65);
+    private Vector3 goalArea = new Vector3(-40, 2.5f, -54);
 
     private GameObject questPointer; //for 3D navigation
     private GameObject navigationUI; //for 2D navigation
