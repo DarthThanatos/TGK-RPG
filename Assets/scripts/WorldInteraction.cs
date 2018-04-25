@@ -7,6 +7,7 @@ public class WorldInteraction : MonoBehaviour {
 	NavMeshAgent playerAgent;
     private Interactable lastInteractedObject;
     private PlayerWeaponController playerWeaponController;
+       
 
 	void Start () {
 		playerAgent = GetComponent<NavMeshAgent> ();
@@ -38,23 +39,31 @@ public class WorldInteraction : MonoBehaviour {
                 CancelLastInteractable(interactedObject.GetComponent<Interactable>());
                 playerWeaponController.OnTargetInteraction(playerAgent);
                 interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
+                MusicHandler.PlayWarMusic();
             }
 			else if (interactedObject.tag == "Interactable Object")
             {
                 CancelLastInteractable(interactedObject.GetComponent<Interactable>());
                 playerAgent.stoppingDistance = 2f;
                 interactedObject.GetComponent<Interactable> ().MoveToInteraction(playerAgent);
-			} 
+            } 
 			else
             {
                 CancelLastInteractable();
                 playerAgent.stoppingDistance = 0;
 				playerAgent.destination = interactionInfo.point;
 
-			}
+            }
 		}
 			
 	}
+
+    private void HandleWarMusic()
+    {
+        if (IsInvoking("StopWarMusicDelayed")) CancelInvoke("StopWarMusicDelayed");
+        Invoke("StopWarMusicDelayed", 5f);
+    }
+
 
     private void CancelLastInteractable(Interactable currentInteractable = null)
     {

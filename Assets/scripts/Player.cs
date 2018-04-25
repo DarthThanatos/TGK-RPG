@@ -9,6 +9,9 @@ public class Player : MonoBehaviour {
 
     public int maxHealth = 100;
 
+    private ParticleSystem woundSpotSystem;
+    private AudioSource woundedSound;
+
     private int _currentHealth;
     public int CurrentHealth {
         get { return _currentHealth; }
@@ -24,12 +27,18 @@ public class Player : MonoBehaviour {
     void Start()
     {
         playerLevel = GetComponent<PlayerLevel>();
+
+        woundSpotSystem = gameObject.transform.Find("WoundSpot").GetComponent<ParticleSystem>();
+        woundedSound = GetComponent<AudioSource>();
+
         CurrentHealth = maxHealth;
         characterStats = new CharacterStats(10, 10, 10);
     }
 
     public void takeDamage(int amount)
     {
+        woundSpotSystem.Play();
+        woundedSound.Play();
 
         CurrentHealth -= amount;
         if (CurrentHealth <= 0)

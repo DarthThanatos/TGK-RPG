@@ -21,6 +21,8 @@ public class Slime : MonoBehaviour, IEnemy {
     public Spawner spawner { get; set; }
     private HealthbarUI healthbarUI;
 
+    private AudioSource woundedSound;
+    private ParticleSystem woundSpotSystem;
 
     void Start()
     {
@@ -41,6 +43,9 @@ public class Slime : MonoBehaviour, IEnemy {
         healthbarUI = GetComponent<HealthbarUI>();
         currentHealth = maxHealth;
         healthbarUI.UpdateHealthBar(gameObject, currentHealth, maxHealth);
+
+        woundedSound = GetComponent<AudioSource>();
+        woundSpotSystem = gameObject.transform.Find("WoundSpot").GetComponent<ParticleSystem>();
     }
 
     void FixedUpdate()
@@ -49,6 +54,8 @@ public class Slime : MonoBehaviour, IEnemy {
         if(withinAggroColliders.Length > 0)
         {
             Collider collider = withinAggroColliders[0];
+            MusicHandler.PlayWarMusic();
+
             ChasePlayer(collider.GetComponent<Player>());
         }
     }
@@ -81,11 +88,13 @@ public class Slime : MonoBehaviour, IEnemy {
 
     public void takeDamage(int amount)
     {
+        woundSpotSystem.Play();
+        woundedSound.Play();
         currentHealth -= amount;
         healthbarUI.UpdateHealthBar(gameObject, currentHealth, maxHealth);
         if(currentHealth <= 0)
         {
-            Die();
+            Invoke("Die", .5f);
         }
 
     }

@@ -20,7 +20,7 @@ public class HealthbarUI : MonoBehaviour {
     public void UpdateHealthBar(GameObject creature, int currentHealth, int maxHealth)
     {
         this.creature = creature;
-        this.currentHealth = currentHealth;
+        this.currentHealth = currentHealth > 0 ? currentHealth : 0;
         this.maxHealth = maxHealth;
     }
 
