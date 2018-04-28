@@ -192,8 +192,6 @@ public class MyInventory : MonoBehaviour {
         ItemData data = slot.transform.GetChild(0).GetComponent<ItemData>();
         int amount = InventoryController.instance.CountItemsHavingName(itemName);
 
-        Debug.Log("Removing stackable item: amount: " + amount);
-
         if (amount >= 1)
         {
             data.transform.GetChild(0).GetComponent<Text>().text = amount.ToString();
