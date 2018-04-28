@@ -206,7 +206,7 @@ public class MyInventory : MonoBehaviour {
             setOccupiedSlots();
 
             // when we consume last stackable element, we have to turn off tooltip 
-            data.tooltip.Deactivate();
+            if (data.tooltip != null) data.tooltip.Deactivate();
 
             slotToStackableNameMap.Remove(slot);
         }
