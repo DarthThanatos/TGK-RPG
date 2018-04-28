@@ -1,86 +1,91 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using UnityEngine.UI;
 
 public class DialogSystem : MonoBehaviour {
 
-    public static DialogSystem instance { get; set; }
+    public static DialogSystem Instance { get; set; }
 
-    public GameObject dialogPanel; 
-    public string npcName;
-    public List<string> dialogueLines = new List<string>();
-
-    Button nextButton;
-    Text dialogueText, nameText;
-    int dialogueIndex;
-
-    private Action actionAtFinish;
-
+    [SerializeField] private GameObject dialog, dialogPanel, dialogWithOptions;
+    [SerializeField] private RectTransform optionsPanel, dialogWithOptionsScrollContent;
+    
     void Awake() {
-        nextButton = dialogPanel.transform.Find("Next").GetComponent<Button>();
-        dialogueText = dialogPanel.transform.Find("Text").GetComponent<Text>();
-        nameText = dialogPanel.transform.Find("NPC Name").transform.Find("Text").GetComponent<Text>();
-
-        dialogPanel.SetActive(false);
-        nextButton.onClick.AddListener(delegate { ContinueDialog(); });
-
-
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
         }
+        DialogAwake();
 	}
-	
-    public void AddNewDialog(string[] lines, string npcName)
+
+    private void DialogAwake()
     {
-        actionAtFinish = null;
-
-        dialogueIndex = 0;
-        dialogueLines = new List<string>(lines.Length);
-        dialogueLines.AddRange(lines);
-        Debug.Log("Added " + dialogueLines.Count + " to a dialog system");
-
-        this.npcName = npcName;
-        CreateDialog();
+        dialogPanel.SetActive(false);
     }
 
-    public void SetActionAtFinish(Action actionAtFinish)
+
+    public void DisplayDialog(string npcName, string text, bool lastOne, DialogTree callbackDialogTree)
     {
-        this.actionAtFinish = actionAtFinish;
+        Text dialogueText = dialog.transform.Find("Text").GetComponent<Text>();
+        Text nameTextUI = dialog.transform.Find("NPC Name").GetChild(0).GetComponent<Text>();
+        DisplayCommonPart(npcName, text, nameTextUI, dialogueText);
+
+        Button nextButton = dialog.transform.Find("Next").GetComponent<Button>();
+        nextButton.onClick.RemoveAllListeners();
+        nextButton.onClick.AddListener(delegate {
+            if (!lastOne) callbackDialogTree.Continue();
+            else callbackDialogTree.Finish();
+        });
+        nextButton.transform.GetChild(0).GetComponent<Text>().text = lastOne ? "Finish" : "Next";
     }
 
-    public void CreateDialog()
+    public void DisplayDialogWithOptions(string npcName, string text, string[] options, DialogTree callbackDialogTree)
     {
-        dialogueText.text = dialogueLines[dialogueIndex];
-        nameText.text = npcName;
+        Text dialogueText = dialogWithOptionsScrollContent.Find("Text").GetComponent<Text>();
+        Text nameTextUI = dialogWithOptions.transform.Find("NPC Name").GetChild(0).GetComponent<Text>();
+        DisplayCommonPart(npcName, text, nameTextUI, dialogueText, withOptions: true);
+        DestroyOptionsPanelChildren();
+        InitOptions(options, callbackDialogTree);
+    }
+
+    public void Hide()
+    {
+        dialogPanel.gameObject.SetActive(false);
+    }
+
+    private void DestroyOptionsPanelChildren()
+    {
+        for (int i = 0; i < optionsPanel.childCount; i++)
+        {
+            Destroy(optionsPanel.GetChild(i).gameObject);
+        }
+    }
+
+    private void InitOptions(string[] options, DialogTree callbackDialogTree)
+    {
+        foreach(string option in options)
+        {
+            GameObject dialogOptionObj = Instantiate(Resources.Load<GameObject>("UI/DialogOptionButtonPrefab"));
+            Button optionButton = dialogOptionObj.GetComponent<Button>();
+            optionButton.transform.GetChild(0).GetComponent<Text>().text = option;
+            optionButton.onClick.AddListener(delegate { callbackDialogTree.OnOptionSelected(option); });
+
+            dialogOptionObj.transform.SetParent(optionsPanel.transform, false);
+        }
+    }
+
+
+    private void DisplayCommonPart(string npcName, string text, Text nameTextUI, Text textUI, bool withOptions = false)
+    {
+        textUI.text = text;
+        nameTextUI.text = npcName;
         dialogPanel.SetActive(true);
+        dialogWithOptions.SetActive(withOptions);
+        dialog.SetActive(!withOptions);
     }
 
-    public void ContinueDialog()
-    {
-        if (dialogueIndex < dialogueLines.Count - 1)
-        {
-            dialogueIndex++;
-            dialogueText.text = dialogueLines[dialogueIndex];
-            if (dialogueIndex == dialogueLines.Count - 1)
-                nextButton.transform.GetChild(0).GetComponent<Text>().text = "Finish";
-        }
-        else
-        {
-            dialogueIndex = 0;
-            nextButton.transform.GetChild(0).GetComponent<Text>().text = "Next";
-            dialogPanel.SetActive(false);
-            if(actionAtFinish != null) actionAtFinish();
-
-        }
-        
-    }
 
 }

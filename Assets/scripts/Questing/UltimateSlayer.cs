@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class UltimateSlayer : Quest {
-
-    public override void init()
+    
+    public override void init(QuestGiver questGiver)
     {
         QuestName = "Ultimate Slime Slayer";
         Description = "An NPC told me to kill 5 slimes and to bring him 3 swords. After doing all this he asked me to go back to him so that he can reward me for my effort.";
@@ -33,5 +31,29 @@ public class UltimateSlayer : Quest {
         phaseOne.Init();
     }
 
-	
+    public override bool StartingConditionsMet(QuestGiver questGiver)
+    {
+        return 
+            new List<string>() { "after_first_acceptance_dialog", "after_second_acceptance_dialog" }
+                .Contains(questGiver.dialogTree.GetState());
+    }
+
+    public override void OnQuestInProgress(QuestGiver questGiver)
+    {
+        base.OnQuestInProgress(questGiver);
+        questGiver.dialogTree.MoveToState("state_2_dialog");
+    }
+
+    public override void Finish(QuestGiver questGiver)
+    {
+        base.Finish(questGiver);
+        questGiver.dialogTree.MoveToState("state_3_dialog");
+    }
+
+    public override void OnAfterQuestFinished(QuestGiver questGiver)
+    {
+        base.OnAfterQuestFinished(questGiver);
+        questGiver.dialogTree.MoveToState("state_4_dialog");
+
+    }
 }

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System;
 
 public abstract class Quest : MonoBehaviour
 {
@@ -23,7 +21,12 @@ public abstract class Quest : MonoBehaviour
         Completed = Phases.All(x => x.Completed);
     }
 
-    public abstract void init();
+    public virtual bool StartingConditionsMet(QuestGiver questGiver)
+    {
+        return true;
+    }
+
+    public abstract void init(QuestGiver questGiver);
 
     public void GiveReward()
     {
@@ -34,7 +37,7 @@ public abstract class Quest : MonoBehaviour
         EconomySystem.instance.PlayerMoney += GoldReward;
     }
 
-    public void Finish()
+    public virtual void Finish(QuestGiver questGiver)
     {
         Phases.ForEach(x => x.Finish());
     }
@@ -45,7 +48,6 @@ public abstract class Quest : MonoBehaviour
         {
             res.AddRange(Phases[i].Goals);
         }
-        //return Phases.Where(x => x.Completed).SelectMany(x => x.Goals).ToList();
         return res;
     }
 
@@ -67,5 +69,15 @@ public abstract class Quest : MonoBehaviour
 
         Phases[currentPhase].Init();
         QuestEventHandler.QuestStateChanged(this);
+    }
+
+    public virtual void OnQuestInProgress(QuestGiver questGiver)
+    {
+
+    }
+
+    public virtual void OnAfterQuestFinished(QuestGiver questGiver)
+    {
+
     }
 }

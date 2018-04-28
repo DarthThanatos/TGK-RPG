@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 public class QuestGiver : NPC {
 
@@ -18,30 +17,35 @@ public class QuestGiver : NPC {
         TalkEvents.TalkedToNPC(npcName);
         if (!QuestAssigned && !HelpedNPC)
         {
-            Debug.Log("First");
             base.Interact();
-            AssignQuest();
+            dialogTree.SetActionAtFinish(delegate { TryToAssignQuest(); });
         }
         else if(QuestAssigned && !HelpedNPC)
         {
-            Debug.Log("Second");
             CheckQuest();
         }
         else
         {
-            Debug.Log("Third");
-            DialogSystem.instance.AddNewDialog(new string[] { "Thanks for the last one.", "You are always welcome here." }, name);
+            dialogTree.StartDialog(npcName);
         }
     }
 
-    void AssignQuest()
+    void TryToAssignQuest()
     {
-        QuestAssigned = true;
-        Quest = (Quest) Quests.AddComponent(System.Type.GetType(QuestType));
-        Quest.init();
-        Journal.instance.AddQuest(Quest);
-        DialogSystem.instance.SetActionAtFinish(delegate { GetComponent<QuestGiverUI>().QuestStarted(Quest); });
-        
+        Quest = (Quest)Quests.AddComponent(System.Type.GetType(QuestType));
+        if (Quest.StartingConditionsMet(this))
+        {
+            QuestAssigned = true;
+            Quest.init(this);
+            Journal.instance.AddQuest(Quest);
+
+            GetComponent<QuestGiverUI>().QuestStarted(Quest);
+        }
+        else
+        {
+            Destroy(Quests.GetComponent<Quest>());
+        }
+
     }
 
     void CheckQuest()
@@ -49,16 +53,20 @@ public class QuestGiver : NPC {
         Quest.CheckGoals();
         if (Quest.Completed)
         {
-            Debug.Log("Giving reward");
-            Journal.instance.FinishQuest(Quest);
+            Journal.instance.FinishQuestFrom(Quest, this);
             HelpedNPC = true;
             QuestAssigned = false;
-            DialogSystem.instance.AddNewDialog(new string[] { "Thanks for that!", "Here is your reward!"}, name);
-            DialogSystem.instance.SetActionAtFinish( delegate { GetComponent<QuestGiverUI>().QuestCompleted(); });
+
+            dialogTree.StartDialog(npcName);
+            dialogTree.SetActionAtFinish(delegate {
+                GetComponent<QuestGiverUI>().QuestCompleted();
+                Quest.OnAfterQuestFinished(this);
+            });
         }
         else
         {
-            DialogSystem.instance.AddNewDialog(new string[] { "You have not done the quest.", "Please go and do it." }, name);
+            Quest.OnQuestInProgress(this);
+            dialogTree.StartDialog(npcName);
         }
     }
 }

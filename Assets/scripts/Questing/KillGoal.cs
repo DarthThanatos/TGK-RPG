@@ -37,6 +37,7 @@ class KillGoal : Goal
             CurrentAmount++;
             Evaluate();
             Phase.CheckGoals();
+            Navigation2D();
             QuestEventHandler.GoalUpdated(this);
         }
     }
@@ -53,12 +54,6 @@ class KillGoal : Goal
         return "Killed " + EnemyCatalogue.enemies[EnemyID] + "s: " + CurrentAmount + "/" + RequiredAmount;
     }
 
-    public override void Evaluate()
-    {
-        base.Evaluate();
-        Navigation2D();
-        Debug.Log("2d");
-    }
 
     private void Navigation2D()
     {
@@ -68,7 +63,7 @@ class KillGoal : Goal
         }
         else
         {
-            if (navigationUI != null)
+            if (navigationUI == null)
             {
                 InitNavigationPanel();
             }

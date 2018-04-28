@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Journal : MonoBehaviour {
@@ -25,10 +24,10 @@ public class Journal : MonoBehaviour {
         QuestEventHandler.AddedQuest(quest);
     }
 
-    public void FinishQuest(Quest quest)
+    public void FinishQuestFrom(Quest quest, QuestGiver questGiver)
     {
         quest.GiveReward();
-        quest.Finish();
+        quest.Finish(questGiver);
         QuestEventHandler.FinishedQuest(quest);
     }
 	

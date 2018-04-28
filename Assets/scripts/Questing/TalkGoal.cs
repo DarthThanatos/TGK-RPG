@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TalkGoal : Goal {
@@ -39,6 +37,7 @@ public class TalkGoal : Goal {
             CurrentAmount++;
             Evaluate();
             Phase.CheckGoals();
+            Navigation2D();
             QuestEventHandler.GoalUpdated(this);
         }
     }
@@ -46,13 +45,6 @@ public class TalkGoal : Goal {
     public override string GetGoalState()
     {
         return "Talked to " + NPCName + ": " + CurrentAmount + "/" + RequiredAmount;
-    }
-
-    public override void Evaluate()
-    {
-        base.Evaluate();
-        Navigation2D();
-        Debug.Log("2d");
     }
 
     public override void UnInit()
@@ -69,7 +61,7 @@ public class TalkGoal : Goal {
         }
         else
         {
-            if (navigationUI != null)
+            if (navigationUI == null)
             {
                 InitNavigationPanel();
             }

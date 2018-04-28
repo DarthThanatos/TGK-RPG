@@ -1,6 +1,4 @@
 ﻿
-using UnityEngine;
-
 public abstract class Goal
 {
     public string Description { get; set; }
@@ -29,7 +27,6 @@ public abstract class Goal
 
     public virtual void Evaluate()
     {
-        Debug.Log("Current: " + CurrentAmount + " required: " + RequiredAmount);
         if (CurrentAmount >= RequiredAmount)
         {
             Complete();
@@ -42,7 +39,6 @@ public abstract class Goal
 
     public void Complete()
     {
-        Debug.Log("Completed");
         Completed = true;
     }
 }

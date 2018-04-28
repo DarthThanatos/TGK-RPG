@@ -1,0 +1,120 @@
+{
+	
+	"start_state" : "state_0_dialog", 
+	
+	"state_0_dialog": [
+		{	
+			"index" : 1,
+			"text": "Hey there friend, please help me!"
+		},
+		
+		{
+			"index" : 2,
+			"text": "There are 5 slimes that I hate dearly. Kill them. "
+		},
+		
+		{
+			"index" : 3,
+			"text": "Then I must ask you to pick up 3 potions for me. Will you help me?",
+			"options": [
+				{
+					"text" : "Sure, why not?",
+					"state" : "after_first_acceptance_dialog"
+				},
+				{
+					"text" : "No, I will not serve your kind!",
+					"state" : "after_first_refusal_dialog"
+				}
+			]	
+		}		
+	],
+	
+	
+	"after_first_refusal_dialog": [
+		{
+			"index" : 1,
+			"text" : "That is a very sad news for me. I shall be here in case you change your mind.",
+			"state" : "state_1_dialog"
+		}
+	],
+	
+	"after_first_acceptance_dialog": [
+		{
+			"index" : 1,
+			"text": "Excellent! Please, be quick"
+		}
+	],
+	
+	
+	"state_1_dialog": [
+		{
+			"index" : 1,
+			"text": "You are back! Does it mean you will do what I ask?",
+			"options": [
+				{
+					"text" : "Yes I will",
+					"state" : "after_second_acceptance_dialog"
+				},
+				{
+					"text" : "No.",
+					"state": "after_second_refusal_dialog"
+				}
+			]
+		}
+	],
+	
+	"after_second_refusal_dialog": [
+		{
+			"index" : 1,
+			"text" : "You know where I am",
+			"state" : "state_1_dialog"
+		}
+	],
+	
+	"after_second_acceptance_dialog": [
+		{
+			"index" : 1,
+			"text": "Thank you! Please be quick!"
+		}
+	],
+	
+	
+	"state_2_dialog" : [
+		{
+			"index" : 1,
+			"text" : "You have not done the quest."
+		},
+		{
+			"index" : 2,
+			"text" : "Please go and do it."
+		}
+	], 
+	
+	"state_3_dialog" : [
+		{
+			"index" : 1,
+			"text" : "Thanks for that!"
+		},
+		{
+		
+			"index" : 2,
+			"text" : "Here is your reward!"
+		}
+	
+	],
+	
+	"state_4_dialog" : [
+	
+		{
+			"index" : 1,
+			"text" : "Thanks for the last one."
+		},
+		{
+			"index" : 2,
+			"text" : "You are always welcome here."
+		}
+	]
+	
+	 
+}
+
