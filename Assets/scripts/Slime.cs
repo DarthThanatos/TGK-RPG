@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,11 +12,15 @@ public class Slime : MonoBehaviour, IEnemy {
     public int ID { get; set; }
     public int currentHealth;
     public int maxHealth = 100;
+    public int power = 5;
+    public float attackSpeed = 3;
 
     private CharacterStats characterStats;
     private Player player;
 
-    public int Experience {get; set;}
+    public int ExpModifier = 1;
+
+    public int Experience { get; set; }
     public DropTable dropTable { get; set; }
 
     public Spawner spawner { get; set; }
@@ -24,8 +29,12 @@ public class Slime : MonoBehaviour, IEnemy {
     private AudioSource woundedSound;
     private ParticleSystem woundSpotSystem;
 
+    private Vector3 initialPosition;
+
     void Start()
     {
+        initialPosition = transform.position;
+
         dropTable = new DropTable();
         dropTable.loot = new List<LootDrop>() {
             new LootDrop("Sword_01", 45),
@@ -34,11 +43,11 @@ public class Slime : MonoBehaviour, IEnemy {
         };
 
 
-        Experience = 20;
+        Experience = 20 * ExpModifier;
         ID = 0;
 
         navMeshAgent = GetComponent<NavMeshAgent>();
-        characterStats = new CharacterStats(6,10,2);
+        characterStats = new CharacterStats(5, 10, 2);
 
         healthbarUI = GetComponent<HealthbarUI>();
         currentHealth = maxHealth;
@@ -53,10 +62,20 @@ public class Slime : MonoBehaviour, IEnemy {
         Collider[] withinAggroColliders = Physics.OverlapSphere(transform.position, 10, aggroLayerMask);
         if(withinAggroColliders.Length > 0)
         {
+            CancelInvoke("BackToInitialPosition");
+            CancelInvoke("Heal");
             Collider collider = withinAggroColliders[0];
             MusicHandler.PlayWarMusic();
 
             ChasePlayer(collider.GetComponent<Player>());
+        } else if(navMeshAgent.velocity.Equals(Vector3.zero) && Vector3.Distance(transform.position, initialPosition) > navMeshAgent.stoppingDistance)
+        {
+            if(!IsInvoking("BackToInitialPosition"))
+                Invoke("BackToInitialPosition", 5.0f);
+        } else if(Vector3.Distance(transform.position, initialPosition) <= navMeshAgent.stoppingDistance)
+        {
+            if(IsInvoking("BackToInitialPosition"))
+                CancelInvoke("BackToInitialPosition");
         }
     }
 
@@ -67,7 +86,7 @@ public class Slime : MonoBehaviour, IEnemy {
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
             if (!IsInvoking("performAttack"))
-                InvokeRepeating("performAttack", .5f, 3f);
+                InvokeRepeating("performAttack", .5f, attackSpeed);
         }
         else
         {
@@ -82,7 +101,7 @@ public class Slime : MonoBehaviour, IEnemy {
     {
         if(player != null)
         {
-            player.takeDamage(5);
+            player.takeDamage(power);
         }
     }
 
@@ -97,8 +116,34 @@ public class Slime : MonoBehaviour, IEnemy {
             Invoke("Die", .5f);
         }
 
+        Debug.Log("Taken damage");
+        Debug.Log("IsInvoking(ChasePlayer)?: " + !IsInvoking("ChasePlayer"));
+
+        if (!IsInvoking("ChasePlayer"))
+        {
+            Debug.Log("Going to player pos");
+            navMeshAgent.SetDestination(GameObject.Find("Player").transform.position);
+        }
     }
 
+
+    private void BackToInitialPosition()
+    {
+        Debug.Log("Going back to initial pos");
+        navMeshAgent.SetDestination(initialPosition);
+        InvokeRepeating("Heal", .5f, .5f);
+    }
+
+    private void Heal()
+    {
+        if (this.currentHealth < this.maxHealth)
+        {
+            this.currentHealth = Math.Min(this.currentHealth + 10, this.maxHealth);
+            healthbarUI.UpdateHealthBar(gameObject, currentHealth, maxHealth);
+        }
+        else
+            CancelInvoke("Heal");
+    }
 
     public void Die()
     {
@@ -120,12 +165,12 @@ public class Slime : MonoBehaviour, IEnemy {
 
 
         int chanceToDropGold = 100;
-        if (Random.Range(0, 101) <= chanceToDropGold)
+        if (UnityEngine.Random.Range(0, 101) <= chanceToDropGold)
         {
             Vector3 goldPos = new Vector3(transform.position.x-1, 2f, transform.position.z-1);
             Quaternion quaternion = Quaternion.AngleAxis(90, new Vector3(1,0,0));
             Gold gold = Instantiate(Resources.Load<Gold>("GoldCoins/goldCoins_pref"), goldPos, quaternion);
-            gold.Amount = 100 + Random.Range(-15, 15); ;
+            gold.Amount = 100 + UnityEngine.Random.Range(-15, 15); ;
         }
     }
 }

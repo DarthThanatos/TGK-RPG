@@ -13,9 +13,16 @@ public class InventoryController : MonoBehaviour {
 
     public List<Item> playerItems = new List<Item>();
 
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        playerItems = new List<Item>();
+    }
+
+
     void Start()
     {
-
         consumableController = GetComponent<ConsumableController>();
         playerWeaponController = GetComponent<PlayerWeaponController>();
 
@@ -36,6 +43,13 @@ public class InventoryController : MonoBehaviour {
         giveItem("Sword_01");
         giveItem("Sword_01" );
         giveItem("Staff_01");
+        giveItem("Potion");
+        giveItem("Potion");
+        giveItem("Potion");
+        giveItem("Potion");
+        giveItem("Potion");
+        giveItem("Potion");
+        giveItem("Potion");
         giveItem("Potion");
         giveItem("Potion");
 

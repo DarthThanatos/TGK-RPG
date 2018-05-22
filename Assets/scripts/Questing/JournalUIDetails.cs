@@ -79,4 +79,12 @@ public class JournalUIDetails : MonoBehaviour {
         }
     }
 
+    private void OnDestroy()
+    {
+        QuestEventHandler.OnDisplayQuestDetails -= OnDisplayQuestDetails;
+        QuestEventHandler.OnGoalUpdated -= OnGoalUpdated;
+        QuestEventHandler.OnQuestFinished -= OnQuestFinished;
+        QuestEventHandler.OnUnselectQuest -= OnUnselectQuest;
+        QuestEventHandler.OnQuestStateChanged -= OnQuestStateChanged;
+    }
 }

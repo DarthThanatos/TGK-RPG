@@ -65,4 +65,9 @@ public class InventoryUIDetails : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        UIEventHandler.OnItemRemovedFromInventory -= RemoveItemIfSelected;
+    }
+
 }

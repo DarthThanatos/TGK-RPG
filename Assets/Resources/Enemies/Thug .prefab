@@ -198,7 +198,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -250,11 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAgent: {fileID: 0}
-  dialog:
-  - You should give me all the money.
-  - Right fucking now!
-  - AAAAAiiaa!!
   npcName: Thug
+  dialogFileName: 
 --- !u!195 &195685387811183712
 NavMeshAgent:
   m_ObjectHideFlags: 1

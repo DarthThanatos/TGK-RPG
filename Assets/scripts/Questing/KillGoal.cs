@@ -98,5 +98,10 @@ class KillGoal : Goal
         questPointer = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("QuestArrow"));
         questPointer.GetComponent<QuestArrow>().Init(goalArea);
     }
+
+    void OnDestroy()
+    {
+        CombatEvents.OnEnemyDeath -= EnemyDied;
+    }
 }
 

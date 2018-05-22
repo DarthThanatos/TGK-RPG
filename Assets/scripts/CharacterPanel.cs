@@ -137,5 +137,19 @@ public class CharacterPanel : MonoBehaviour {
         weaponIcon.sprite = defaultWeaponSprite;
     }
 
+    private void OnDestroy()
+    {
+        UIEventHandler.OnPlayerHealthChanged -= UpdateHealth;
+        UIEventHandler.OnPlayerLevelChanged -= UpdateExperience;
+        UIEventHandler.OnStatsChanged -= UpdateStats;
+
+        UIEventHandler.OnItemUnequipped -= UnequipWeapon;
+        UIEventHandler.OnItemEquipped -= UpdateEquippedWeapon;
+
+        UIEventHandler.OnItemRemovedFromInventory -= UnequipWeapon;
+
+        EconomyEventHandel.OnPlayerGoldChanged -= OnPlayerGoldChanged;
+    }
+
 
 }

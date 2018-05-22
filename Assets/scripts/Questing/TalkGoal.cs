@@ -75,4 +75,9 @@ public class TalkGoal : Goal {
         navigationUI.GetComponent<NavigationUI>().Init(goalArea);
         navigationUI.transform.SetParent(GameObject.Find("Canvas").gameObject.transform);
     }
+
+    void OnDestroy()
+    {
+        TalkEvents.OnTalkedToNPC += OnTalkedToNPC;
+    }
 }

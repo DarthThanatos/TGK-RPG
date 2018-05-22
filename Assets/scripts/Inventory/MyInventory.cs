@@ -232,4 +232,13 @@ public class MyInventory : MonoBehaviour {
     {
         occupiedSlots.GetComponent<Text>().text = occupiedSlotsAmount + " / " + slotAmount;
     }
+
+
+    private void OnDestroy()
+    {
+        UIEventHandler.OnItemAddedToInventory -= ItemAdded;
+        UIEventHandler.OnItemRemovedFromInventory -= ItemRemoved;
+        UIEventHandler.OnItemEquipped -= ItemRemoved;
+        UIEventHandler.OnItemUnequipped -= ItemAdded;
+    }
 }

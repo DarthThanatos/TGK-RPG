@@ -66,4 +66,10 @@ public class PlayerLevel : MonoBehaviour {
             GUI.Box(rect, "New Level: " + Level);
         }
     }
+
+    private void OnDestroy()
+    {
+        CombatEvents.OnEnemyDeath -= EnemyToExperience;
+        QuestEventHandler.OnQuestFinished -= OnQuestFinished;
+    }
 }

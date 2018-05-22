@@ -67,4 +67,10 @@ public class CollectionGoal : Goal
     {
         return "Gathered " + ItemName + "s: " + CurrentAmount + "/" + RequiredAmount;
     }
+
+    void OnDestroy()
+    {
+        UIEventHandler.OnItemRemovedFromInventory -= OnItemRemoved;
+        UIEventHandler.OnItemAddedToInventory -= ItemPickedUp;
+    }
 }

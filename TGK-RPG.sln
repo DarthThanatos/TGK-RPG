@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TGK-RPG", "TGK-RPG.csproj", "{2D6AF729-1517-41B6-87B5-4308BDDD446A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TGK-RPG.Editor", "TGK-RPG.Editor.csproj", "{68CEEBBC-EB6D-9194-2553-F09E7E99A4FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{2D6AF729-1517-41B6-87B5-4308BDDD446A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D6AF729-1517-41B6-87B5-4308BDDD446A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D6AF729-1517-41B6-87B5-4308BDDD446A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68CEEBBC-EB6D-9194-2553-F09E7E99A4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68CEEBBC-EB6D-9194-2553-F09E7E99A4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68CEEBBC-EB6D-9194-2553-F09E7E99A4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68CEEBBC-EB6D-9194-2553-F09E7E99A4FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

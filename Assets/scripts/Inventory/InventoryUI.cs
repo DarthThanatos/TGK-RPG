@@ -87,5 +87,11 @@ public class InventoryUI : MonoBehaviour {
     //            inventoryPanel.gameObject.SetActive(menuIsActive);
     //        }
     //    }
- 
+
+    private void OnDestroy()
+    {
+        UIEventHandler.OnItemEquipped -= ItemEquipped;
+        UIEventHandler.OnItemUnequipped -= ItemUneqipped;
+    }
+
 }

@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
@@ -50,6 +51,9 @@ public class Player : MonoBehaviour {
 
     private void die()
     {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
         Debug.Log("Player dead, restoring health of the Nameless One");
         CurrentHealth = maxHealth;
     }

@@ -233,5 +233,14 @@ public class ShopKeeperUI : Interactable {
         toolTipArea.gameObject.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        EconomyEventHandel.OnBalanceChanged -= OnBalanceChanged;
+        EconomyEventHandel.OnPlayerGoldChanged -= OnPlayerGoldChanged;
 
+        UIEventHandler.OnItemAddedToInventory -= OnItemAddedToInventory;
+        UIEventHandler.OnItemRemovedFromInventory -= OnItemRemovedFromInventory;
+        UIEventHandler.OnItemEquipped -= OnItemEquipped;
+        UIEventHandler.OnItemUnequipped -= OnItemUnequipped;
+    }
 }

@@ -78,4 +78,12 @@ public class QuestDetailsUI : MonoBehaviour {
         }
     }
 
+    private void OnDestroy()
+    {
+        QuestEventHandler.OnFollowQuest -= OnFollowQuest;
+        QuestEventHandler.OnUnFollowQuest -= OnUnFollowQuest;
+        QuestEventHandler.OnGoalUpdated -= OnGoalUpdated;
+        QuestEventHandler.OnQuestFinished -= OnQuestFinished;
+        QuestEventHandler.OnQuestStateChanged -= OnQuestStateChanged;
+    }
 }

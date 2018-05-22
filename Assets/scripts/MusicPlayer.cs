@@ -64,5 +64,10 @@ public class MusicPlayer : MonoBehaviour{
         }
     }
 
+    private void OnDestroy()
+    {
+        MusicHandler.OnPlayWarMusic -= OnPlayWarMusic;
+    }
+
 
 }

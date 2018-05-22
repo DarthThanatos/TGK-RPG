@@ -14,7 +14,13 @@ public class EconomySystem : MonoBehaviour {
             EconomyEventHandel.PlayerGoldChanged();
         }
     }
-    
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
+
 
     void Start () {
         if (instance != null && instance != this)

@@ -12,11 +12,12 @@ public class FireBall : MonoBehaviour {
     private ParticleSystem componentParticleSystem;
     Vector3 spawnPosition;
 
-    private int chanceToExplode = 25;
+    private int chanceToExplode = 100;
 
     void Start()
     {
         spawnPosition = transform.position;
+        Debug.Log("Direction: " + direction);
         GetComponent<Rigidbody>().AddForce(direction * 50f);
         componentParticleSystem = GetComponent<ParticleSystem>();
     }

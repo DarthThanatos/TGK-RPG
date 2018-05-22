@@ -132,4 +132,10 @@ public class JournalUI : MonoBehaviour {
         }
     }
 
+    private void OnDestroy()
+    {
+        QuestEventHandler.OnQuestAdded -= OnQuestAdded;
+        QuestEventHandler.OnQuestFinished -= OnQuestFinished;
+    }
+
 }
