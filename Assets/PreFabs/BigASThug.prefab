@@ -259,6 +259,7 @@ MonoBehaviour:
   maxHealth: 100
   power: 5
   attackSpeed: 1.5
+  ExpModifier: 2
 --- !u!114 &114277010236521992
 MonoBehaviour:
   m_ObjectHideFlags: 1

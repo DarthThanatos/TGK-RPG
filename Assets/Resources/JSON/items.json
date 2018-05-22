@@ -56,7 +56,7 @@
 		"objectSlug": "Potion",
 		"absoluteSlug": "Consumables/Potion",
 		"itemName" : "Potion",
-		"description" : "A log potion" ,
+		"description" : "A healing potion" ,
 		"actionName" : "Drink" ,
 		"stackable" : "true",
 		"itemType" : "Consumable",

@@ -284,6 +284,7 @@ MonoBehaviour:
   maxHealth: 500
   power: 5
   attackSpeed: 3
+  ExpModifier: 3
 --- !u!195 &195893782517492626
 NavMeshAgent:
   m_ObjectHideFlags: 1

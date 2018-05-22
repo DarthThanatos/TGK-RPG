@@ -251,7 +251,6 @@
     <Compile Include="Assets\Inventory.cs" />
     <Compile Include="Assets\InventorySlot.cs" />
     <Compile Include="Assets\LevelLoader.cs" />
-    <Compile Include="Assets\Low Polygon Potions Pack\Other Assets\Scripts\CreatePrefabFromSelected.cs" />
     <Compile Include="Assets\MainMenu.cs" />
     <Compile Include="Assets\OptionsMenu.cs" />
     <Compile Include="Assets\PolyQuest_EvilVillage\Scripts\FlyCam.cs" />
