@@ -22,9 +22,9 @@ public class WorldInteraction : MonoBehaviour {
 		Camera.main.transform.position = new Vector3 (playerPos.x, CameraY, playerPos.z + 10);
 		if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) {
 			GetInteraction ();
-		}
+        }
 
-	}
+    }
 
 
 

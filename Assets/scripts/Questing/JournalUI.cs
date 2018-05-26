@@ -98,6 +98,7 @@ public class JournalUI : MonoBehaviour {
         }
 
         ShowAppropriateQuests();
+        followBtn.onClick.Invoke();
     }
 
     private void FollowQuest(Quest quest, Button followButton)
